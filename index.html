@@ -135,8 +135,12 @@
     font-weight: 800;
     color: var(--accent);
     margin: 22px 4px 10px;
-    padding-bottom: 6px;
+    padding: 6px 4px;
     border-bottom: 2px solid var(--accent);
+    position: sticky;
+    top: var(--controls-h, 100px);
+    background: var(--bg);
+    z-index: 5;
   }
   .day-heading:first-child { margin-top: 4px; }
 
@@ -184,15 +188,15 @@
     background: var(--bg);
     padding: 0 4px;
   }
-  .grid-row {
+  .grid-cards-area {
     position: absolute;
+    top: 0; bottom: 0;
     right: 46px;
     left: 6px;
-    display: flex;
-    gap: 6px;
   }
   .grid-card {
-    flex: 1 1 0;
+    position: absolute;
+    box-sizing: border-box;
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-inline-start: 6px solid var(--groups);
@@ -240,7 +244,9 @@
   .week-columns { position: relative; display: flex; margin-right: 30px; height: 100%; }
   .week-col { flex: 1 1 0; position: relative; border-inline-start: 1px solid var(--border); min-width: 0; }
   .week-event {
-    position: absolute; right: 1px; left: 1px;
+    position: absolute;
+    box-sizing: border-box;
+    outline: 1px solid var(--bg);
     border-radius: 4px; overflow: hidden; padding: 2px 3px;
     font-size: 0.58rem; line-height: 1.15; cursor: pointer; color: #fff;
   }
@@ -459,6 +465,48 @@
     content.innerHTML = any ? html : '<div class="empty-msg">אין שיעורים בקטגוריה זו</div>';
   }
 
+  // מארגן אירועים חופפים בעמודות זו-לצד-זו, כמו בגוגל קלנדר
+  function computeLayout(items, day, DAY_START, SCALE, minHeight) {
+    const withTimes = items.map(e => {
+      const startMin = toMinutes(e.time);
+      const durationMin = (e.durationByDay && e.durationByDay[day]) || e.duration || DEFAULT_DURATION_MIN;
+      return { e, startMin, endMin: startMin + durationMin };
+    }).sort((a, b) => a.startMin - b.startMin || a.endMin - b.endMin);
+
+    const clusters = [];
+    let current = [];
+    let currentEnd = -Infinity;
+    withTimes.forEach(it => {
+      if (current.length && it.startMin >= currentEnd) {
+        clusters.push(current);
+        current = [];
+        currentEnd = -Infinity;
+      }
+      current.push(it);
+      currentEnd = Math.max(currentEnd, it.endMin);
+    });
+    if (current.length) clusters.push(current);
+
+    clusters.forEach(cluster => {
+      const columnEnds = [];
+      cluster.forEach(it => {
+        let placedCol = columnEnds.findIndex(end => end <= it.startMin);
+        if (placedCol === -1) { placedCol = columnEnds.length; columnEnds.push(it.endMin); }
+        else { columnEnds[placedCol] = it.endMin; }
+        it.col = placedCol;
+      });
+      cluster.forEach(it => { it.cols = columnEnds.length; });
+    });
+
+    return withTimes.map(it => ({
+      e: it.e,
+      top: Math.max(0, (it.startMin - DAY_START) * SCALE),
+      height: Math.max(minHeight, (it.endMin - it.startMin) * SCALE - 2),
+      col: it.col,
+      cols: it.cols
+    }));
+  }
+
   function renderGrid() {
     const DAY_START = 6 * 60;   // 06:00
     const DAY_END = 22 * 60;    // 22:00
@@ -476,29 +524,21 @@
       html += `<div class="grid-hour-label" style="top:${top}px">${h}:00</div>`;
     }
 
-    const byTime = {};
-    items.forEach(e => {
-      (byTime[e.time] = byTime[e.time] || []).push(e);
+    const layout = computeLayout(items, selectedDay, DAY_START, SCALE, 40);
+    let cards = "";
+    layout.forEach(({ e, top, height, col, cols }) => {
+      const contact = CONTACTS[e.contactKey];
+      const loc = contact && contact.location ? ` · 📍${contact.location}` : "";
+      const idx = SCHEDULE.indexOf(e);
+      const widthPct = 100 / cols;
+      const rightPct = col * widthPct;
+      cards += `<div class="grid-card ${e.category}" style="top:${top}px;height:${height}px;right:${rightPct}%;width:${widthPct}%" data-idx="${idx}" data-day="${selectedDay}">
+        <div class="t">${e.time}${loc}</div>
+        <div class="s">${e.subject}</div>
+        ${e.teacher ? `<div class="r">${e.teacher}</div>` : ""}
+      </div>`;
     });
-
-    Object.keys(byTime).forEach(time => {
-      const mins = toMinutes(time);
-      const top = Math.max(0, (mins - DAY_START) * SCALE - 8);
-      const group = byTime[time];
-      const cards = group.map(e => {
-        const contact = CONTACTS[e.contactKey];
-        const loc = contact && contact.location ? ` · 📍${contact.location}` : "";
-        const idx = SCHEDULE.indexOf(e);
-        return `<div class="grid-card ${e.category}" data-idx="${idx}" data-day="${selectedDay}">
-          <div class="t">${e.time}${loc}</div>
-          <div class="s">${e.subject}</div>
-          ${e.teacher ? `<div class="r">${e.teacher}</div>` : ""}
-        </div>`;
-      }).join("");
-      html += `<div class="grid-row" style="top:${top}px">${cards}</div>`;
-    });
-
-    html += `</div>`;
+    html += `<div class="grid-cards-area">${cards}</div></div>`;
     content.innerHTML = items.length ? html : '<div class="empty-msg">אין שיעורים בקטגוריה זו ביום ' + selectedDay + '</div>';
   }
 
@@ -521,14 +561,13 @@
     let anyEvents = false;
     const cols = DAYS.map(day => {
       const items = SCHEDULE.filter(e => e.days.includes(day)).filter(matchesCat);
-      const events = items.map(e => {
+      const layout = computeLayout(items, day, DAY_START, SCALE, 16);
+      const events = layout.map(({ e, top, height, col, cols }) => {
         anyEvents = true;
-        const mins = toMinutes(e.time);
-        const top = Math.max(0, (mins - DAY_START) * SCALE);
-        const durationMin = (e.durationByDay && e.durationByDay[day]) || e.duration || DEFAULT_DURATION_MIN;
-        const h = Math.max(16, durationMin * SCALE - 2);
         const idx = SCHEDULE.indexOf(e);
-        return `<div class="week-event ${e.category}" style="top:${top}px;height:${h}px" data-idx="${idx}" data-day="${day}">
+        const widthPct = 100 / cols;
+        const rightPct = col * widthPct;
+        return `<div class="week-event ${e.category}" style="top:${top}px;height:${height}px;right:${rightPct}%;width:${widthPct}%" data-idx="${idx}" data-day="${day}">
           <div class="we-t">${e.time}</div><div class="we-s">${e.subject}</div>
         </div>`;
       }).join("");
@@ -557,6 +596,8 @@
       if (isActive) b.scrollIntoView({ block: "nearest", inline: "center" });
     });
     daysNav.classList.toggle("hidden", !(selectedView === "grid" && gridMode === "day"));
+
+    document.documentElement.style.setProperty("--controls-h", document.querySelector(".sticky-controls").offsetHeight + "px");
 
     if (selectedView === "list") renderList();
     else if (gridMode === "week") renderWeekGrid();

@@ -11,9 +11,9 @@ const DAYS = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", 
 
 // לפרטים ליצירת קשר לכל שיעור/קבוצה (מתוך טבלת הפרטים שבתחתית הלוח)
 const CONTACTS = {
-  "שיעור הלכה עם הרב חננאל": { location: "אוהלים", contact: "ניר דהן", phone: "052-6097564" },
+  "שיעור הלכה עם הרב חננאל": { location: "אוהלים", contact: "עמנואל תורג'מן", phone: "054-2475060" },
   "עין איה": { location: "אוהל משה", contact: "אמיר אלמוג", phone: "053-5313276" },
-  "כוונה שבלב": { location: "במ\"ק בית המדרש", contact: "דוד לאופר", phone: "050-4542524" },
+  "כוונה שבלב": { location: "במ\"ק בית המדרש", contact: "ניר דהן", phone: "052-6097564" },
   "שיעורי הרב יהוידע בבקרים": { location: "חדר האוצר", contact: "יחזקאל בלוקה", phone: "052-3121098" },
   "שיעורי הרב יהוידע לילדים": { location: "מ\"ד קומה ראשונה", contact: "יונדב אלבז", phone: "054-5391977" },
   "דף יומי בוקר": { location: "פרגולה", contact: "", phone: "", groupLink: "https://chat.whatsapp.com/FnhfAv7iqvnGcqUvo8juIB" },
@@ -55,13 +55,12 @@ const SCHEDULE = [
   { time: "19:30", subject: "תורה נוער - לימוד חבורות", teacher: "", category: "groups", contactKey: "תורה נוער", days: ["שני"] },
   { time: "20:30", subject: "אור החיים", teacher: "ר' שלמה נוימן", category: "groups", contactKey: "אור החיים", days: ["שלישי"] },
 
-  { time: "20:00", subject: "כוונה שבלב", teacher: "הרב ידידיה", category: "rabanim", contactKey: "כוונה שבלב", days: ["שני"] },
+  { time: "19:45", subject: "כוונה שבלב", teacher: "הרב ידידיה", category: "rabanim", contactKey: "כוונה שבלב", days: ["ראשון"], note: "בקיץ: אחרי ערבית באוהלים" },
   { time: "20:15", subject: "שיעור לאברכיות", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 105 },
 
   { time: "21:00", subject: "דף יומי (ערב)", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["ראשון","שני","שלישי","רביעי","חמישי"], duration: 35 },
   { time: "20:30", subject: "שערי אורה", teacher: "ר' דוד לרדו", category: "groups", contactKey: "שערי אורה", days: ["שני"], duration: 60 },
   { time: "21:00", subject: "תלמוד למתחילים", teacher: "דב יציב", category: "groups", contactKey: "תלמוד למתחילים", days: ["שלישי"] },
   { time: "20:45", subject: "שיעור לכלל הנשים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 75 },
-  { time: "21:00", subject: "עין איה", teacher: "הרב חננאל", category: "rabanim", contactKey: "עין איה", days: ["שבת"] },
-  { time: "21:00", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי בוקר", days: ["שבת"] }
+  { time: "21:00", subject: "עין איה", teacher: "הרב חננאל", category: "rabanim", contactKey: "עין איה", days: ["חמישי"] }
 ];
