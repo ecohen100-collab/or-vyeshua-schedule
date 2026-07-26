@@ -261,7 +261,45 @@
     return digits.startsWith("0") ? "972" + digits.slice(1) : digits;
   }
 
-  function entryCardHTML(e) {
+  const BYDAY = { "ראשון":"SU", "שני":"MO", "שלישי":"TU", "רביעי":"WE", "חמישי":"TH", "שישי":"FR", "שבת":"SA" };
+  const DEFAULT_DURATION_MIN = 45; // משך משוער - הלוח לא מציין שעת סיום
+
+  function pad(n) { return String(n).padStart(2, "0"); }
+
+  function fmtLocal(d) {
+    return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+  }
+
+  function nextDateForDay(day, timeStr) {
+    const [h, m] = timeStr.split(":").map(Number);
+    const now = new Date();
+    const targetDow = DAYS.indexOf(day); // DAYS order matches JS getDay() 0=ראשון..6=שבת
+    const diffDays = (targetDow - now.getDay() + 7) % 7;
+    const candidate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + diffDays, h, m, 0);
+    if (diffDays === 0 && candidate.getTime() < now.getTime()) {
+      candidate.setDate(candidate.getDate() + 7);
+    }
+    return candidate;
+  }
+
+  function googleCalendarLink(e, day) {
+    const start = nextDateForDay(day, e.time);
+    const end = new Date(start.getTime() + DEFAULT_DURATION_MIN * 60000);
+    const contact = CONTACTS[e.contactKey] || null;
+    const detailsLines = [e.teacher || "", "קהילת אור וישועה"].filter(Boolean);
+    const params = new URLSearchParams({
+      action: "TEMPLATE",
+      text: e.subject,
+      dates: `${fmtLocal(start)}/${fmtLocal(end)}`,
+      details: detailsLines.join("\n"),
+      location: (contact && contact.location) || "",
+      ctz: "Asia/Jerusalem",
+      recur: `RRULE:FREQ=WEEKLY;BYDAY=${BYDAY[day]}`
+    });
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
+  }
+
+  function entryCardHTML(e, day) {
     const contact = CONTACTS[e.contactKey] || null;
     return `
       <div class="entry ${e.category}">
@@ -272,16 +310,16 @@
           </div>
           <div class="entry-time">${e.time}</div>
         </div>
-        ${contact ? `
         <div class="entry-meta">
-          ${contact.location ? `<span>📍 ${contact.location}</span>` : ""}
-          ${contact.contact ? `<span>👤 ${contact.contact}</span>` : ""}
-          ${contact.phone ? `
+          ${contact && contact.location ? `<span>📍 ${contact.location}</span>` : ""}
+          ${contact && contact.contact ? `<span>👤 ${contact.contact}</span>` : ""}
+          ${contact && contact.phone ? `
             <span>📞 <a href="tel:${contact.phone.replace(/-/g, "")}">${contact.phone}</a></span>
             <span>💬 <a href="https://wa.me/${toWhatsAppNumber(contact.phone)}" target="_blank" rel="noopener">וואטסאפ</a></span>
           ` : ""}
-          ${contact.groupLink ? `<span>💬 <a href="${contact.groupLink}" target="_blank" rel="noopener">הצטרפות לקבוצת וואטסאפ</a></span>` : ""}
-        </div>` : ""}
+          ${contact && contact.groupLink ? `<span>💬 <a href="${contact.groupLink}" target="_blank" rel="noopener">הצטרפות לקבוצת וואטסאפ</a></span>` : ""}
+          <span>📅 <a href="${googleCalendarLink(e, day)}" target="_blank" rel="noopener">הוספה ליומן Google</a></span>
+        </div>
       </div>`;
   }
 
@@ -296,7 +334,7 @@
       if (items.length === 0) return;
       any = true;
       html += `<div class="day-heading">יום ${day}</div>`;
-      html += items.map(entryCardHTML).join("");
+      html += items.map(it => entryCardHTML(it, day)).join("");
     });
     content.innerHTML = any ? html : '<div class="empty-msg">אין שיעורים בקטגוריה זו</div>';
   }
