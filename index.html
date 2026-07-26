@@ -127,6 +127,9 @@
   .filter-btn[data-cat="groups"].active { background: var(--groups); color: #fff; border-color: var(--groups); }
   .filter-btn[data-cat="women"].active { background: var(--women); color: #fff; border-color: var(--women); }
 
+  .filters.secondary { padding-top: 0; }
+  .filter-btn.generic.active { background: var(--text); color: #fff; border-color: var(--text); }
+
   main { padding: 14px 12px 0; max-width: 700px; margin: 0 auto; }
 
   /* ---------- List view ---------- */
@@ -158,7 +161,7 @@
   .entry.women { border-inline-start-color: var(--women); }
 
   .entry-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-  .entry-time { font-size: 1.3rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
+  .entry-time { font-size: 1.3rem; font-weight: 700; color: var(--accent); white-space: nowrap; direction: ltr; }
   .entry-subject { font-size: 1.15rem; font-weight: 700; }
   .entry-teacher { margin-top: 2px; color: var(--muted); font-size: 1rem; }
   .entry-note { margin-top: 2px; color: var(--muted); font-size: 0.75rem; font-style: italic; }
@@ -210,7 +213,7 @@
   .grid-card.rabanim { border-inline-start-color: var(--rabanim); }
   .grid-card.groups { border-inline-start-color: var(--groups); }
   .grid-card.women { border-inline-start-color: var(--women); }
-  .grid-card .t { font-weight: 700; color: var(--accent); font-size: 0.75rem; }
+  .grid-card .t { font-weight: 700; color: var(--accent); font-size: 0.75rem; direction: ltr; }
   .grid-card .s { font-weight: 700; }
   .grid-card .r { color: var(--muted); font-size: 0.75rem; }
 
@@ -253,7 +256,7 @@
   .week-event.rabanim { background: var(--rabanim); }
   .week-event.groups { background: var(--groups); }
   .week-event.women { background: var(--women); }
-  .we-t { font-weight: 700; font-size: 0.52rem; opacity: 0.9; }
+  .we-t { font-weight: 700; font-size: 0.52rem; opacity: 0.9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: ltr; }
   .we-s { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   /* ---------- Details modal ---------- */
@@ -302,6 +305,17 @@
     <button class="filter-btn" data-cat="groups">קבוצות לימוד</button>
     <button class="filter-btn" data-cat="women">לנשים</button>
   </div>
+  <div class="filters secondary" id="audienceNav">
+    <button class="filter-btn generic active" data-aud="all">הכל (קהל יעד)</button>
+    <button class="filter-btn generic" data-aud="נשים">נשים</button>
+    <button class="filter-btn generic" data-aud="נוער">נוער</button>
+  </div>
+  <div class="filters secondary" id="langNav">
+    <button class="filter-btn generic active" data-lang="all">הכל (שפה)</button>
+    <button class="filter-btn generic" data-lang="עברית">עברית</button>
+    <button class="filter-btn generic" data-lang="צרפתית">צרפתית</button>
+    <button class="filter-btn generic" data-lang="ספרדית">ספרדית</button>
+  </div>
 </div>
 
 <main id="content"></main>
@@ -322,9 +336,12 @@
 <script>
   const HEBREW_DAY_INDEX = new Date().getDay(); // 0=ראשון
   let selectedDay = DAYS[HEBREW_DAY_INDEX];
-  let selectedCat = "all";
   let selectedView = "list";
   let gridMode = "week";
+
+  const selectedCats = new Set();
+  const selectedAudiences = new Set();
+  const selectedLangs = new Set();
 
   const DAY_LETTER = { "ראשון":"א", "שני":"ב", "שלישי":"ג", "רביעי":"ד", "חמישי":"ה", "שישי":"ו", "שבת":"ש" };
 
@@ -332,15 +349,16 @@
   const subviewToggle = document.getElementById("subviewToggle");
   const daysNav = document.getElementById("daysNav");
   const filtersNav = document.getElementById("filtersNav");
+  const audienceNav = document.getElementById("audienceNav");
+  const langNav = document.getElementById("langNav");
   const content = document.getElementById("content");
   const modalOverlay = document.getElementById("modalOverlay");
   const modalContent = document.getElementById("modalContent");
   const modalClose = document.getElementById("modalClose");
 
   const feedbackLink = document.getElementById("feedbackLink");
-  const feedbackSubject = encodeURIComponent("הערה לשיפור - לוח שיעורים אור וישועה");
-  const feedbackBody = encodeURIComponent("כתוב כאן את ההערה שלך:\n\n");
-  feedbackLink.href = `mailto:ecohen100@gmail.com?subject=${feedbackSubject}&body=${feedbackBody}`;
+  const feedbackMsg = encodeURIComponent("הערה לשיפור בלוח השיעורים:\n\n");
+  feedbackLink.href = `https://wa.me/972585858432?text=${feedbackMsg}`;
 
   DAYS.forEach(day => {
     const btn = document.createElement("button");
@@ -359,9 +377,19 @@
     btn.addEventListener("click", () => { gridMode = btn.dataset.mode; render(); });
   });
 
-  filtersNav.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.addEventListener("click", () => { selectedCat = btn.dataset.cat; render(); });
-  });
+  function wireMultiSelect(nav, set, datasetKey) {
+    nav.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const val = btn.dataset[datasetKey];
+        if (val === "all") { set.clear(); }
+        else { set.has(val) ? set.delete(val) : set.add(val); }
+        render();
+      });
+    });
+  }
+  wireMultiSelect(filtersNav, selectedCats, "cat");
+  wireMultiSelect(audienceNav, selectedAudiences, "aud");
+  wireMultiSelect(langNav, selectedLangs, "lang");
 
   function openModal(e, day) {
     modalContent.innerHTML = `<div class="modal-day">יום ${day}</div>` + entryCardHTML(e, day);
@@ -385,7 +413,10 @@
   }
 
   function matchesCat(e) {
-    return selectedCat === "all" || e.category === selectedCat;
+    const catOk = selectedCats.size === 0 || selectedCats.has(e.category);
+    const audOk = selectedAudiences.size === 0 || (e.audience || []).some(a => selectedAudiences.has(a));
+    const langOk = selectedLangs.size === 0 || selectedLangs.has(e.lang || "עברית");
+    return catOk && audOk && langOk;
   }
 
   function toWhatsAppNumber(phone) {
@@ -394,9 +425,21 @@
   }
 
   const BYDAY = { "ראשון":"SU", "שני":"MO", "שלישי":"TU", "רביעי":"WE", "חמישי":"TH", "שישי":"FR", "שבת":"SA" };
-  const DEFAULT_DURATION_MIN = 45; // משך משוער - הלוח לא מציין שעת סיום
+  const DEFAULT_DURATION_MIN = 60; // משך משוער - הלוח לא מציין שעת סיום
 
   function pad(n) { return String(n).padStart(2, "0"); }
+
+  function getDurationMin(e, day) {
+    return (e.durationByDay && e.durationByDay[day]) || e.duration || DEFAULT_DURATION_MIN;
+  }
+
+  function formatTimeRange(e, day) {
+    const startMin = toMinutes(e.time);
+    const endMin = startMin + getDurationMin(e, day);
+    const eh = Math.floor(endMin / 60) % 24;
+    const em = endMin % 60;
+    return `${e.time}–${eh}:${pad(em)}`;
+  }
 
   function fmtLocal(d) {
     return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
@@ -416,7 +459,7 @@
 
   function googleCalendarLink(e, day) {
     const start = nextDateForDay(day, e.time);
-    const durationMin = (e.durationByDay && e.durationByDay[day]) || e.duration || DEFAULT_DURATION_MIN;
+    const durationMin = getDurationMin(e, day);
     const end = new Date(start.getTime() + durationMin * 60000);
     const contact = CONTACTS[e.contactKey] || null;
     const detailsLines = [e.teacher || "", "קהילת אור וישועה"].filter(Boolean);
@@ -442,7 +485,7 @@
             ${e.teacher ? `<div class="entry-teacher">${e.teacher}</div>` : ""}
             ${e.note ? `<div class="entry-note">${e.note}</div>` : ""}
           </div>
-          <div class="entry-time">${e.time}</div>
+          <div class="entry-time">${formatTimeRange(e, day)}</div>
         </div>
         <div class="entry-meta">
           ${contact && contact.location ? `<span>📍 ${contact.location}</span>` : ""}
@@ -477,7 +520,7 @@
   function computeLayout(items, day, DAY_START, SCALE, minHeight) {
     const withTimes = items.map(e => {
       const startMin = toMinutes(e.time);
-      const durationMin = (e.durationByDay && e.durationByDay[day]) || e.duration || DEFAULT_DURATION_MIN;
+      const durationMin = getDurationMin(e, day);
       return { e, startMin, endMin: startMin + durationMin };
     }).sort((a, b) => a.startMin - b.startMin || a.endMin - b.endMin);
 
@@ -541,7 +584,7 @@
       const widthPct = 100 / cols;
       const rightPct = col * widthPct;
       cards += `<div class="grid-card ${e.category}" style="top:${top}px;height:${height}px;right:${rightPct}%;width:${widthPct}%" data-idx="${idx}" data-day="${selectedDay}">
-        <div class="t">${e.time}${loc}</div>
+        <div class="t">${formatTimeRange(e, selectedDay)}${loc}</div>
         <div class="s">${e.subject}</div>
         ${e.teacher ? `<div class="r">${e.teacher}</div>` : ""}
       </div>`;
@@ -576,7 +619,7 @@
         const widthPct = 100 / cols;
         const rightPct = col * widthPct;
         return `<div class="week-event ${e.category}" style="top:${top}px;height:${height}px;right:${rightPct}%;width:${widthPct}%" data-idx="${idx}" data-day="${day}">
-          <div class="we-t">${e.time}</div><div class="we-s">${e.subject}</div>
+          <div class="we-t">${formatTimeRange(e, day)}</div><div class="we-s">${e.subject}</div>
         </div>`;
       }).join("");
       return `<div class="week-col">${events}</div>`;
@@ -597,7 +640,16 @@
     viewToggle.querySelectorAll(".view-btn").forEach(b => b.classList.toggle("active", b.dataset.view === selectedView));
     subviewToggle.querySelectorAll(".subview-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === gridMode));
     subviewToggle.classList.toggle("hidden", selectedView !== "grid");
-    filtersNav.querySelectorAll(".filter-btn").forEach(b => b.classList.toggle("active", b.dataset.cat === selectedCat));
+    function updateMultiSelectUI(nav, set, datasetKey) {
+      nav.querySelectorAll(".filter-btn").forEach(b => {
+        const val = b.dataset[datasetKey];
+        b.classList.toggle("active", val === "all" ? set.size === 0 : set.has(val));
+      });
+    }
+    updateMultiSelectUI(filtersNav, selectedCats, "cat");
+    updateMultiSelectUI(audienceNav, selectedAudiences, "aud");
+    updateMultiSelectUI(langNav, selectedLangs, "lang");
+
     daysNav.querySelectorAll(".day-btn").forEach(b => {
       const isActive = b.dataset.day === selectedDay;
       b.classList.toggle("active", isActive);
