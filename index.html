@@ -62,6 +62,26 @@
   }
   .view-btn.active { background: var(--accent); color: #fff; }
 
+  .subview-toggle {
+    display: flex;
+    gap: 8px;
+    padding: 6px 12px 4px;
+  }
+  .subview-toggle.hidden { display: none; }
+  .subview-btn {
+    flex: 1 1 0;
+    padding: 8px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 38px;
+  }
+  .subview-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+
   .days-nav {
     display: flex;
     overflow-x: auto;
@@ -181,6 +201,7 @@
     font-size: 0.85rem;
     overflow: hidden;
     box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    cursor: pointer;
   }
   .grid-card.rabanim { border-inline-start-color: var(--rabanim); }
   .grid-card.groups { border-inline-start-color: var(--groups); }
@@ -188,6 +209,64 @@
   .grid-card .t { font-weight: 700; color: var(--accent); font-size: 0.75rem; }
   .grid-card .s { font-weight: 700; }
   .grid-card .r { color: var(--muted); font-size: 0.75rem; }
+
+  /* ---------- Week grid ---------- */
+  .week-wrap { margin: 10px auto 0; max-width: 700px; }
+  .week-header-row {
+    display: flex;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 2;
+    border-bottom: 1px solid var(--border);
+    margin-right: 30px;
+  }
+  .week-day-header {
+    flex: 1 1 0;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--muted);
+    padding: 6px 0;
+  }
+  .week-day-header.today { color: #fff; background: var(--accent); border-radius: 8px 8px 0 0; }
+  .week-body { position: relative; }
+  .week-hour-line { position: absolute; right: 28px; left: 0; border-top: 1px solid var(--border); }
+  .week-hour-label {
+    position: absolute; right: 0; width: 26px; text-align: center;
+    font-size: 0.6rem; color: var(--muted); transform: translateY(-50%);
+    background: var(--bg); z-index: 1;
+  }
+  .week-columns { position: relative; display: flex; margin-right: 30px; height: 100%; }
+  .week-col { flex: 1 1 0; position: relative; border-inline-start: 1px solid var(--border); min-width: 0; }
+  .week-event {
+    position: absolute; right: 1px; left: 1px;
+    border-radius: 4px; overflow: hidden; padding: 2px 3px;
+    font-size: 0.58rem; line-height: 1.15; cursor: pointer; color: #fff;
+  }
+  .week-event.rabanim { background: var(--rabanim); }
+  .week-event.groups { background: var(--groups); }
+  .week-event.women { background: var(--women); }
+  .we-t { font-weight: 700; font-size: 0.52rem; opacity: 0.9; }
+  .we-s { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ---------- Details modal ---------- */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    z-index: 100; align-items: flex-end; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-card {
+    background: var(--bg); width: 100%; max-width: 500px;
+    border-radius: 16px 16px 0 0; padding: 20px 16px 24px;
+    max-height: 85vh; overflow-y: auto; position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 10px; left: 10px; width: 36px; height: 36px;
+    border-radius: 50%; border: none; background: var(--border); color: var(--text);
+    font-size: 1.1rem; cursor: pointer;
+  }
+  .modal-day { font-weight: 800; color: var(--accent); margin-bottom: 8px; padding-inline-end: 40px; }
 
   .empty-msg { text-align: center; color: var(--muted); padding: 40px 20px; font-size: 1.05rem; }
 
@@ -204,7 +283,11 @@
 <div class="sticky-controls">
   <div class="view-toggle" id="viewToggle">
     <button class="view-btn active" data-view="list">📋 רשימה (כל השבוע)</button>
-    <button class="view-btn" data-view="grid">🗓️ לוז יומי</button>
+    <button class="view-btn" data-view="grid">🗓️ לוז</button>
+  </div>
+  <div class="subview-toggle hidden" id="subviewToggle">
+    <button class="subview-btn active" data-mode="week">שבוע</button>
+    <button class="subview-btn" data-mode="day">יום</button>
   </div>
   <nav class="days-nav hidden" id="daysNav"></nav>
   <div class="filters" id="filtersNav">
@@ -217,6 +300,13 @@
 
 <main id="content"></main>
 
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-card">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
 <footer>לחיצה על מספר טלפון תחייג ישירות</footer>
 
 <script src="data.js"></script>
@@ -225,11 +315,18 @@
   let selectedDay = DAYS[HEBREW_DAY_INDEX];
   let selectedCat = "all";
   let selectedView = "list";
+  let gridMode = "week";
+
+  const DAY_LETTER = { "ראשון":"א", "שני":"ב", "שלישי":"ג", "רביעי":"ד", "חמישי":"ה", "שישי":"ו", "שבת":"ש" };
 
   const viewToggle = document.getElementById("viewToggle");
+  const subviewToggle = document.getElementById("subviewToggle");
   const daysNav = document.getElementById("daysNav");
   const filtersNav = document.getElementById("filtersNav");
   const content = document.getElementById("content");
+  const modalOverlay = document.getElementById("modalOverlay");
+  const modalContent = document.getElementById("modalContent");
+  const modalClose = document.getElementById("modalClose");
 
   DAYS.forEach(day => {
     const btn = document.createElement("button");
@@ -244,8 +341,28 @@
     btn.addEventListener("click", () => { selectedView = btn.dataset.view; render(); });
   });
 
+  subviewToggle.querySelectorAll(".subview-btn").forEach(btn => {
+    btn.addEventListener("click", () => { gridMode = btn.dataset.mode; render(); });
+  });
+
   filtersNav.querySelectorAll(".filter-btn").forEach(btn => {
     btn.addEventListener("click", () => { selectedCat = btn.dataset.cat; render(); });
+  });
+
+  function openModal(e, day) {
+    modalContent.innerHTML = `<div class="modal-day">יום ${day}</div>` + entryCardHTML(e, day);
+    modalOverlay.classList.add("open");
+  }
+  function closeModal() { modalOverlay.classList.remove("open"); }
+  modalClose.addEventListener("click", closeModal);
+  modalOverlay.addEventListener("click", (ev) => { if (ev.target === modalOverlay) closeModal(); });
+
+  content.addEventListener("click", (ev) => {
+    const el = ev.target.closest(".week-event, .grid-card");
+    if (!el) return;
+    const idx = Number(el.dataset.idx);
+    const day = el.dataset.day;
+    openModal(SCHEDULE[idx], day);
   });
 
   function toMinutes(t) {
@@ -371,7 +488,8 @@
       const cards = group.map(e => {
         const contact = CONTACTS[e.contactKey];
         const loc = contact && contact.location ? ` · 📍${contact.location}` : "";
-        return `<div class="grid-card ${e.category}">
+        const idx = SCHEDULE.indexOf(e);
+        return `<div class="grid-card ${e.category}" data-idx="${idx}" data-day="${selectedDay}">
           <div class="t">${e.time}${loc}</div>
           <div class="s">${e.subject}</div>
           ${e.teacher ? `<div class="r">${e.teacher}</div>` : ""}
@@ -384,17 +502,64 @@
     content.innerHTML = items.length ? html : '<div class="empty-msg">אין שיעורים בקטגוריה זו ביום ' + selectedDay + '</div>';
   }
 
+  function renderWeekGrid() {
+    const DAY_START = 6 * 60;   // 06:00
+    const DAY_END = 22 * 60;    // 22:00
+    const SCALE = 1.3;          // px per minute
+    const totalHeight = (DAY_END - DAY_START) * SCALE;
+    const today = DAYS[new Date().getDay()];
+
+    let hourLines = "";
+    for (let h = 6; h <= 22; h++) {
+      const top = (h * 60 - DAY_START) * SCALE;
+      hourLines += `<div class="week-hour-line" style="top:${top}px"></div>`;
+      hourLines += `<div class="week-hour-label" style="top:${top}px">${h}</div>`;
+    }
+
+    const header = DAYS.map(d => `<div class="week-day-header${d === today ? " today" : ""}">${DAY_LETTER[d]}</div>`).join("");
+
+    let anyEvents = false;
+    const cols = DAYS.map(day => {
+      const items = SCHEDULE.filter(e => e.days.includes(day)).filter(matchesCat);
+      const events = items.map(e => {
+        anyEvents = true;
+        const mins = toMinutes(e.time);
+        const top = Math.max(0, (mins - DAY_START) * SCALE);
+        const durationMin = (e.durationByDay && e.durationByDay[day]) || e.duration || DEFAULT_DURATION_MIN;
+        const h = Math.max(16, durationMin * SCALE - 2);
+        const idx = SCHEDULE.indexOf(e);
+        return `<div class="week-event ${e.category}" style="top:${top}px;height:${h}px" data-idx="${idx}" data-day="${day}">
+          <div class="we-t">${e.time}</div><div class="we-s">${e.subject}</div>
+        </div>`;
+      }).join("");
+      return `<div class="week-col">${events}</div>`;
+    }).join("");
+
+    content.innerHTML = `
+      <div class="week-wrap">
+        <div class="week-header-row">${header}</div>
+        <div class="week-body" style="height:${totalHeight}px">
+          ${hourLines}
+          <div class="week-columns">${cols}</div>
+        </div>
+      </div>`;
+    if (!anyEvents) content.innerHTML += '<div class="empty-msg">אין שיעורים בקטגוריה זו</div>';
+  }
+
   function render() {
     viewToggle.querySelectorAll(".view-btn").forEach(b => b.classList.toggle("active", b.dataset.view === selectedView));
+    subviewToggle.querySelectorAll(".subview-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === gridMode));
+    subviewToggle.classList.toggle("hidden", selectedView !== "grid");
     filtersNav.querySelectorAll(".filter-btn").forEach(b => b.classList.toggle("active", b.dataset.cat === selectedCat));
     daysNav.querySelectorAll(".day-btn").forEach(b => {
       const isActive = b.dataset.day === selectedDay;
       b.classList.toggle("active", isActive);
       if (isActive) b.scrollIntoView({ block: "nearest", inline: "center" });
     });
-    daysNav.classList.toggle("hidden", selectedView !== "grid");
+    daysNav.classList.toggle("hidden", !(selectedView === "grid" && gridMode === "day"));
 
     if (selectedView === "list") renderList();
+    else if (gridMode === "week") renderWeekGrid();
     else renderGrid();
   }
 
