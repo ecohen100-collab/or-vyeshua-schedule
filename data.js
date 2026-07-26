@@ -56,12 +56,12 @@ const SCHEDULE = [
   { time: "20:30", subject: "אור החיים", teacher: "ר' שלמה נוימן", category: "groups", contactKey: "אור החיים", days: ["שלישי"] },
 
   { time: "20:00", subject: "כוונה שבלב", teacher: "הרב ידידיה", category: "rabanim", contactKey: "כוונה שבלב", days: ["שני"] },
-  { time: "20:00", subject: "שיעור לאברכיות", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי","חמישי"] },
+  { time: "20:15", subject: "שיעור לאברכיות", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 105 },
 
   { time: "21:00", subject: "דף יומי (ערב)", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["ראשון","שני","שלישי","רביעי","חמישי"], duration: 35 },
   { time: "20:30", subject: "שערי אורה", teacher: "ר' דוד לרדו", category: "groups", contactKey: "שערי אורה", days: ["שני"], duration: 60 },
   { time: "21:00", subject: "תלמוד למתחילים", teacher: "דב יציב", category: "groups", contactKey: "תלמוד למתחילים", days: ["שלישי"] },
-  { time: "21:00", subject: "שיעור לכלל הנשים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["חמישי"] },
+  { time: "20:45", subject: "שיעור לכלל הנשים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 75 },
   { time: "21:00", subject: "עין איה", teacher: "הרב חננאל", category: "rabanim", contactKey: "עין איה", days: ["שבת"] },
   { time: "21:00", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי בוקר", days: ["שבת"] }
 ];
