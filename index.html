@@ -313,7 +313,10 @@
   </div>
 </div>
 
-<footer>לחיצה על מספר טלפון תחייג ישירות</footer>
+<footer>
+  לחיצה על מספר טלפון תחייג ישירות<br>
+  <a id="feedbackLink" href="#" style="color:var(--accent); font-weight:700; display:inline-block; margin-top:10px;">📝 שלח הערה לשיפור</a>
+</footer>
 
 <script src="data.js"></script>
 <script>
@@ -333,6 +336,11 @@
   const modalOverlay = document.getElementById("modalOverlay");
   const modalContent = document.getElementById("modalContent");
   const modalClose = document.getElementById("modalClose");
+
+  const feedbackLink = document.getElementById("feedbackLink");
+  const feedbackSubject = encodeURIComponent("הערה לשיפור - לוח שיעורים אור וישועה");
+  const feedbackBody = encodeURIComponent("כתוב כאן את ההערה שלך:\n\n");
+  feedbackLink.href = `mailto:ecohen100@gmail.com?subject=${feedbackSubject}&body=${feedbackBody}`;
 
   DAYS.forEach(day => {
     const btn = document.createElement("button");
