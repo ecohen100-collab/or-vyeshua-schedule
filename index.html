@@ -137,6 +137,7 @@
   .entry-time { font-size: 1.3rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
   .entry-subject { font-size: 1.15rem; font-weight: 700; }
   .entry-teacher { margin-top: 2px; color: var(--muted); font-size: 1rem; }
+  .entry-note { margin-top: 2px; color: var(--muted); font-size: 0.75rem; font-style: italic; }
   .entry-meta {
     margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border);
     font-size: 0.95rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 16px;
@@ -308,6 +309,7 @@
           <div>
             <div class="entry-subject">${e.subject}</div>
             ${e.teacher ? `<div class="entry-teacher">${e.teacher}</div>` : ""}
+            ${e.note ? `<div class="entry-note">${e.note}</div>` : ""}
           </div>
           <div class="entry-time">${e.time}</div>
         </div>

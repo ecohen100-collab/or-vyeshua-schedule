@@ -43,12 +43,12 @@ const SCHEDULE = [
   { time: "10:30", subject: "Shiur en español", teacher: "", category: "rabanim", contactKey: "", days: ["שבת"] },
   { time: "10:30", subject: "שיעורי ילדים", teacher: "", category: "groups", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שבת"] },
 
-  { time: "16:30", subject: "שיעור הלכה", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שני","חמישי"] },
-  { time: "16:30", subject: "גמרא תענית - כיתות ז'", teacher: "", category: "groups", contactKey: "גמרא תענית לכיתות ז", days: ["ראשון"] },
-  { time: "16:30", subject: "גמרא - כיתה ח'", teacher: "", category: "groups", contactKey: "גמרא לכיתות ח", days: ["חמישי"] },
-  { time: "16:30", subject: "נוסח תפילה - כיתות ה'-ו'", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"] },
-  { time: "16:30", subject: "טעמי המקרא - כיתות ב'-ו'", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"] },
-  { time: "16:30", subject: "חברותות - כיתות ה'-ז' חט\"ב", teacher: "", category: "groups", contactKey: "", days: ["רביעי"] },
+  { time: "19:30", subject: "שיעור הלכה", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שני","חמישי"], note: "בין מנחה לערבית" },
+  { time: "19:30", subject: "גמרא תענית - כיתות ז'", teacher: "", category: "groups", contactKey: "גמרא תענית לכיתות ז", days: ["ראשון"], note: "בין מנחה לערבית" },
+  { time: "19:30", subject: "גמרא - כיתה ח'", teacher: "", category: "groups", contactKey: "גמרא לכיתות ח", days: ["חמישי"], note: "בין מנחה לערבית" },
+  { time: "19:30", subject: "נוסח תפילה - כיתות ה'-ו'", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"], note: "בין מנחה לערבית" },
+  { time: "19:30", subject: "טעמי המקרא - כיתות ב'-ו'", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"], note: "בין מנחה לערבית" },
+  { time: "19:30", subject: "חברותות - כיתות ה'-ז' חט\"ב", teacher: "", category: "groups", contactKey: "", days: ["רביעי"], note: "בין מנחה לערבית" },
   { time: "16:30", subject: "טעמי המצוות", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שבת"] },
   { time: "16:30", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי בוקר", days: ["שבת"] },
 
@@ -59,7 +59,7 @@ const SCHEDULE = [
   { time: "20:00", subject: "שיעור לאברכיות", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי","חמישי"] },
 
   { time: "21:00", subject: "דף יומי (ערב)", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["ראשון","שני","רביעי"] },
-  { time: "21:00", subject: "שערי אורה", teacher: "ר' דוד לרדו", category: "groups", contactKey: "שערי אורה", days: ["שני"] },
+  { time: "20:30", subject: "שערי אורה", teacher: "ר' דוד לרדו", category: "groups", contactKey: "שערי אורה", days: ["שני"], duration: 60 },
   { time: "21:00", subject: "תלמוד למתחילים", teacher: "דב יציב", category: "groups", contactKey: "תלמוד למתחילים", days: ["שלישי"] },
   { time: "21:00", subject: "שיעור לכלל הנשים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["חמישי"] },
   { time: "21:00", subject: "עין איה", teacher: "הרב חננאל", category: "rabanim", contactKey: "עין איה", days: ["שבת"] },
