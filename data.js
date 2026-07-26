@@ -31,9 +31,9 @@ const CONTACTS = {
 
 // לוח השיעורים: כל שיעור עם היום/הימים בהם הוא מתקיים
 const SCHEDULE = [
-  { time: "6:30", subject: "דף יומי", teacher: "ירוחם נעמן", category: "groups", contactKey: "דף יומי בוקר", days: ["ראשון","שני","שלישי","רביעי","חמישי","שישי"] },
+  { time: "6:30", subject: "דף יומי", teacher: "ירוחם נעמן", category: "groups", contactKey: "דף יומי בוקר", days: ["ראשון","שני","שלישי","רביעי","חמישי","שישי"], duration: 30, durationByDay: { "שישי": 60 } },
 
-  { time: "8:00", subject: "Talmud en français", teacher: "ר' יוסף אסוס", category: "groups", contactKey: "Talmud en français", days: ["ראשון","שלישי","רביעי"] },
+  { time: "8:00", subject: "Talmud en français", teacher: "ר' יוסף אסוס", category: "groups", contactKey: "Talmud en français", days: ["ראשון","שלישי","רביעי"], duration: 45 },
   { time: "8:00", subject: "תנ\"ך משנה - סוגיות בעיון", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע בבקרים", days: ["שלישי"] },
   { time: "8:00", subject: "מהר\"ל שבת", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע בבקרים", days: ["רביעי"] },
 

@@ -284,7 +284,8 @@
 
   function googleCalendarLink(e, day) {
     const start = nextDateForDay(day, e.time);
-    const end = new Date(start.getTime() + DEFAULT_DURATION_MIN * 60000);
+    const durationMin = (e.durationByDay && e.durationByDay[day]) || e.duration || DEFAULT_DURATION_MIN;
+    const end = new Date(start.getTime() + durationMin * 60000);
     const contact = CONTACTS[e.contactKey] || null;
     const detailsLines = [e.teacher || "", "קהילת אור וישועה"].filter(Boolean);
     const params = new URLSearchParams({
