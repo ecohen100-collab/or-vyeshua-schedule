@@ -30,7 +30,11 @@ const CONTACTS = {
   "גמרא לכיתות ח": { location: "בפרגולה", contact: "ר' שמואל כהן", phone: "058-6681605" },
   "Shiur en français": { location: "היכל בנימין", contact: "יעל וייס", phone: "058-6667708" },
   "Shiur en español": { location: "", contact: "איתן", phone: "058-5858432" },
-  "שיעורי הרבנית": { location: "בפרגולה 12", contact: "יעל וייס", phone: "058-6667708" }
+  "שיעורי הרבנית": { location: "בפרגולה 12", contact: "יעל וייס", phone: "058-6667708" },
+  "ילדי גן": { location: "גן צופיה" },
+  "כיתות א-ג": { location: "בספריה" },
+  "כיתות ד-ו": { location: "ממ\"ק בית המדרש" },
+  "תהילים לבנות": { location: "בגן אתי" }
 };
 
 // לוח השיעורים: כל שיעור עם היום/הימים בהם הוא מתקיים
@@ -45,7 +49,10 @@ const SCHEDULE = [
   { time: "10:35", subject: "דרשת שבת של מו\"ר", teacher: "", category: "rabanim", contactKey: "", days: ["שבת"], duration: 75 },
   { time: "10:35", subject: "Shiur en français", teacher: "", category: "rabanim", contactKey: "", days: ["שבת"], lang: "צרפתית", duration: 75 },
   { time: "10:35", subject: "Shiur en español", teacher: "", category: "rabanim", contactKey: "Shiur en español", days: ["שבת"], lang: "ספרדית", duration: 75 },
-  { time: "10:35", subject: "שיעורי ילדים", teacher: "", category: "youth", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שבת"], duration: 75, note: "לפי גילאים - פירוט קבוצות ומיקומים יושלם בהמשך" },
+  { time: "10:35", subject: "ילדי גן", teacher: "", category: "youth", contactKey: "ילדי גן", days: ["שבת"], duration: 75 },
+  { time: "10:35", subject: "שיעורי ילדים - כיתות א'-ג'", teacher: "", category: "youth", contactKey: "כיתות א-ג", days: ["שבת"], duration: 75 },
+  { time: "10:35", subject: "שיעורי ילדים - כיתות ד'-ו'", teacher: "", category: "youth", contactKey: "כיתות ד-ו", days: ["שבת"], duration: 75 },
+  { time: "10:35", subject: "תהילים לבנות", teacher: "", category: "youth", contactKey: "תהילים לבנות", days: ["שבת"], duration: 75 },
 
   { time: "19:30", subject: "שיעור הלכה", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שני","חמישי"], timeLabel: "בין מנחה לערבית", duration: 30 },
   { time: "19:30", subject: "גמרא תענית - כיתות ז'", teacher: "", category: "youth", contactKey: "גמרא תענית לכיתות ז", days: ["ראשון"], timeLabel: "בין מנחה לערבית", duration: 30 },
