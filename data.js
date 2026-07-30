@@ -30,11 +30,7 @@ const CONTACTS = {
   "גמרא לכיתות ח": { location: "בפרגולה", contact: "ר' שמואל כהן", phone: "058-6681605" },
   "Shiur en français": { location: "היכל בנימין", contact: "יעל וייס", phone: "058-6667708" },
   "Shiur en español": { location: "", contact: "איתן", phone: "058-5858432" },
-  "שיעורי הרבנית": { location: "בפרגולה 12", contact: "יעל וייס", phone: "058-6667708" },
-  "ילדי גן": { location: "גן צופיה" },
-  "כיתות א-ג": { location: "בספריה" },
-  "כיתות ד-ו": { location: "ממ\"ק בית המדרש" },
-  "תהילים לבנות": { location: "בגן אתי" }
+  "שיעורי הרבנית": { location: "בפרגולה 12", contact: "יעל וייס", phone: "058-6667708" }
 };
 
 // לוח השיעורים: כל שיעור עם היום/הימים בהם הוא מתקיים
@@ -49,10 +45,12 @@ const SCHEDULE = [
   { time: "10:35", subject: "דרשת שבת של מו\"ר", teacher: "", category: "rabanim", contactKey: "", days: ["שבת"], duration: 75 },
   { time: "10:35", subject: "Shiur en français", teacher: "", category: "rabanim", contactKey: "", days: ["שבת"], lang: "צרפתית", duration: 75 },
   { time: "10:35", subject: "Shiur en español", teacher: "", category: "rabanim", contactKey: "Shiur en español", days: ["שבת"], lang: "ספרדית", duration: 75 },
-  { time: "10:35", subject: "ילדי גן", teacher: "", category: "youth", contactKey: "ילדי גן", days: ["שבת"], duration: 75 },
-  { time: "10:35", subject: "שיעורי ילדים - כיתות א'-ג'", teacher: "", category: "youth", contactKey: "כיתות א-ג", days: ["שבת"], duration: 75 },
-  { time: "10:35", subject: "שיעורי ילדים - כיתות ד'-ו'", teacher: "", category: "youth", contactKey: "כיתות ד-ו", days: ["שבת"], duration: 75 },
-  { time: "10:35", subject: "תהילים לבנות", teacher: "", category: "youth", contactKey: "תהילים לבנות", days: ["שבת"], duration: 75 },
+  { time: "10:35", subject: "שיעורים לילדים", teacher: "", category: "youth", contactKey: "", days: ["שבת"], duration: 75, note: "לחצו לפירוט", groups: [
+    { label: "ילדי גן", location: "גן צופיה" },
+    { label: "כיתות א'-ג'", location: "בספריה" },
+    { label: "כיתות ד'-ו'", location: "ממ\"ק בית המדרש" },
+    { label: "תהילים לבנות", location: "בגן אתי" }
+  ] },
 
   { time: "19:30", subject: "שיעור הלכה", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שני","חמישי"], timeLabel: "בין מנחה לערבית", duration: 30 },
   { time: "19:30", subject: "גמרא תענית - כיתות ז'", teacher: "", category: "youth", contactKey: "גמרא תענית לכיתות ז", days: ["ראשון"], timeLabel: "בין מנחה לערבית", duration: 30 },
@@ -63,7 +61,7 @@ const SCHEDULE = [
   { time: "19:30", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי בוקר", days: ["שבת"], timeLabel: "בין מנחה לערבית", duration: 45 },
 
   { time: "19:30", subject: "תורה נוער - לימוד חבורות", teacher: "", category: "youth", contactKey: "תורה נוער", days: ["שני"], note: "בחופש הגדול" },
-  { time: "20:30", subject: "אור החיים", teacher: "ר' שלמה נוימן", category: "groups", contactKey: "אור החיים", days: ["שלישי"] },
+  { time: "20:30", subject: "אור החיים", teacher: "ר' שלמה נוימן", category: "groups", contactKey: "אור החיים", days: ["שלישי"], timeLabel: "אחרי ערבית באוהלים" },
 
   { time: "19:45", subject: "כוונה שבלב", teacher: "הרב ידידיה", category: "rabanim", contactKey: "כוונה שבלב", days: ["ראשון"], timeLabel: "אחרי ערבית", note: "בקיץ: באוהלים" },
   { time: "20:15", subject: "שיעור לנשות האברכים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 30 },
