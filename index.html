@@ -16,6 +16,7 @@
     --women: #d81b8c;
     --youth: #c77b1f;
     --accent: #16585e;
+    --header-accent: #b8894a;
   }
   * { box-sizing: border-box; }
   body {
@@ -28,13 +29,13 @@
     padding-bottom: 40px;
   }
   header {
-    background: var(--accent);
+    background: var(--header-accent);
     color: #fff;
-    padding: 8px 16px 6px;
+    padding: 5px 16px 3px;
     text-align: center;
   }
-  header h1 { margin: 0; font-size: 1.15rem; }
-  header p { margin: 0; font-size: 0.8rem; opacity: 0.9; }
+  header h1 { margin: 0; font-size: 1.05rem; }
+  header p { margin: 0; font-size: 0.75rem; opacity: 0.9; }
 
   .sticky-controls {
     position: sticky;
@@ -46,42 +47,29 @@
 
   .view-toggle {
     display: flex;
+    align-items: center;
     gap: 6px;
     padding: 6px 8px 3px;
+  }
+  .view-toggle-label {
+    flex: 0 0 auto;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
   }
   .view-btn {
     flex: 1 1 0;
     padding: 6px 8px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     border-radius: 8px;
-    border: 2px solid var(--accent);
+    border: 2px solid var(--border);
     background: #fff;
-    color: var(--accent);
+    color: var(--text);
     font-weight: 700;
     cursor: pointer;
     min-height: 34px;
   }
-  .view-btn.active { background: var(--accent); color: #fff; }
-
-  .subview-toggle {
-    display: flex;
-    gap: 6px;
-    padding: 3px 8px;
-  }
-  .subview-toggle.hidden { display: none; }
-  .subview-btn {
-    flex: 1 1 0;
-    padding: 5px;
-    font-size: 0.8rem;
-    border-radius: 6px;
-    border: 2px solid var(--border);
-    background: #fff;
-    color: var(--text);
-    font-weight: 600;
-    cursor: pointer;
-    min-height: 28px;
-  }
-  .subview-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+  .view-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
 
   .days-nav {
     display: flex;
@@ -307,12 +295,10 @@
 
 <div class="sticky-controls">
   <div class="view-toggle" id="viewToggle">
-    <button class="view-btn active" data-view="list">📋 רשימה (כל השבוע)</button>
-    <button class="view-btn" data-view="grid">🗓️ לוז</button>
-  </div>
-  <div class="subview-toggle hidden" id="subviewToggle">
-    <button class="subview-btn active" data-mode="week">שבוע</button>
-    <button class="subview-btn" data-mode="day">יום</button>
+    <span class="view-toggle-label">תצוגה:</span>
+    <button class="view-btn active" data-view="list">רשימה</button>
+    <button class="view-btn" data-view="grid" data-mode="week">לוז שבועי</button>
+    <button class="view-btn" data-view="grid" data-mode="day">לוז יומי</button>
   </div>
   <nav class="days-nav hidden" id="daysNav"></nav>
   <div class="filters" id="filtersNav">
@@ -358,7 +344,6 @@
   const DAY_LETTER = { "ראשון":"א", "שני":"ב", "שלישי":"ג", "רביעי":"ד", "חמישי":"ה", "שישי":"ו", "שבת":"ש" };
 
   const viewToggle = document.getElementById("viewToggle");
-  const subviewToggle = document.getElementById("subviewToggle");
   const daysNav = document.getElementById("daysNav");
   const filtersNav = document.getElementById("filtersNav");
   const langNav = document.getElementById("langNav");
@@ -381,11 +366,11 @@
   });
 
   viewToggle.querySelectorAll(".view-btn").forEach(btn => {
-    btn.addEventListener("click", () => { selectedView = btn.dataset.view; render(); });
-  });
-
-  subviewToggle.querySelectorAll(".subview-btn").forEach(btn => {
-    btn.addEventListener("click", () => { gridMode = btn.dataset.mode; render(); });
+    btn.addEventListener("click", () => {
+      selectedView = btn.dataset.view;
+      if (btn.dataset.mode) gridMode = btn.dataset.mode;
+      render();
+    });
   });
 
   function wireMultiSelect(nav, set, datasetKey) {
@@ -648,9 +633,10 @@
   }
 
   function render() {
-    viewToggle.querySelectorAll(".view-btn").forEach(b => b.classList.toggle("active", b.dataset.view === selectedView));
-    subviewToggle.querySelectorAll(".subview-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === gridMode));
-    subviewToggle.classList.toggle("hidden", selectedView !== "grid");
+    viewToggle.querySelectorAll(".view-btn").forEach(b => {
+      const isActive = b.dataset.view === selectedView && (!b.dataset.mode || b.dataset.mode === gridMode);
+      b.classList.toggle("active", isActive);
+    });
     function updateMultiSelectUI(nav, set, datasetKey) {
       nav.querySelectorAll(".filter-btn").forEach(b => {
         const val = b.dataset[datasetKey];
