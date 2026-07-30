@@ -175,7 +175,7 @@
   .entry.youth { border-inline-start-color: var(--youth); }
 
   .entry-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-  .entry-time { font-size: 1.3rem; font-weight: 700; color: var(--accent); white-space: nowrap; direction: ltr; }
+  .entry-time { font-size: 1.3rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
   .entry-subject { font-size: 1.15rem; font-weight: 700; }
   .entry-teacher { margin-top: 2px; color: var(--muted); font-size: 1rem; }
   .entry-note { margin-top: 2px; color: var(--muted); font-size: 0.75rem; font-style: italic; }
@@ -228,7 +228,7 @@
   .grid-card.groups { border-inline-start-color: var(--groups); }
   .grid-card.women { border-inline-start-color: var(--women); }
   .grid-card.youth { border-inline-start-color: var(--youth); }
-  .grid-card .t { font-weight: 700; color: var(--accent); font-size: 0.75rem; direction: ltr; }
+  .grid-card .t { font-weight: 700; color: var(--accent); font-size: 0.75rem; }
   .grid-card .s { font-weight: 700; }
   .grid-card .r { color: var(--muted); font-size: 0.75rem; }
 
@@ -272,7 +272,7 @@
   .week-event.groups { background: var(--groups); }
   .week-event.women { background: var(--women); }
   .week-event.youth { background: var(--youth); }
-  .we-t { font-weight: 700; font-size: 0.52rem; opacity: 0.9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: ltr; }
+  .we-t { font-weight: 700; font-size: 0.52rem; opacity: 0.9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .we-s { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   /* ---------- Details modal ---------- */
@@ -328,9 +328,8 @@
     <button class="filter-btn generic" data-lang="צרפתית">צרפתית</button>
     <button class="filter-btn generic" data-lang="ספרדית">ספרדית</button>
   </div>
+  <div class="notice-banner">בין הזמנים / חופש גדול: ייתכן וחלק מהשיעורים לא מתקיימים. כדאי לבדוק עם אנשי הקשר.</div>
 </div>
-
-<div class="notice-banner">בין הזמנים / חופש גדול: ייתכן וחלק מהשיעורים לא מתקיימים. כדאי לבדוק עם אנשי הקשר.</div>
 
 <main id="content"></main>
 
@@ -424,6 +423,7 @@
   }
 
   function matchesCat(e) {
+    if (e.hidden) return false;
     const catOk = selectedCats.size === 0 || selectedCats.has(e.category);
     const langOk = selectedLangs.size === 0 || selectedLangs.has(e.lang || "עברית");
     return catOk && langOk;
@@ -444,11 +444,12 @@
   }
 
   function formatTimeRange(e, day) {
+    if (e.timeLabel) return e.timeLabel;
     const startMin = toMinutes(e.time);
     const endMin = startMin + getDurationMin(e, day);
     const eh = Math.floor(endMin / 60) % 24;
     const em = endMin % 60;
-    return `${e.time}–${eh}:${pad(em)}`;
+    return `<span dir="ltr">${e.time}–${eh}:${pad(em)}</span>`;
   }
 
   function fmtLocal(d) {

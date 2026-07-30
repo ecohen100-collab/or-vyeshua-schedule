@@ -38,8 +38,8 @@ const SCHEDULE = [
   { time: "6:30", subject: "דף יומי", teacher: "ירוחם נעמן", category: "groups", contactKey: "דף יומי בוקר", days: ["ראשון","שני","שלישי","רביעי","חמישי","שישי"], duration: 30, durationByDay: { "שישי": 60 } },
 
   { time: "8:00", subject: "Talmud en français", teacher: "ר' יוסף אסוס", category: "groups", contactKey: "Talmud en français", days: ["ראשון","שלישי","רביעי"], duration: 45, lang: "צרפתית" },
-  { time: "8:00", subject: "סוגיות בעיון", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע בבקרים", days: ["שלישי"] },
-  { time: "8:00", subject: "מהר\"ל שבת", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע בבקרים", days: ["רביעי"] },
+  { time: "8:00", subject: "סוגיות בעיון", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע בבקרים", days: ["שלישי"], hidden: true },
+  { time: "8:00", subject: "מהר\"ל שבת", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע בבקרים", days: ["רביעי"], hidden: true },
 
   { time: "10:00", subject: "Shiur en français", teacher: "הרבנית", category: "women", contactKey: "Shiur en français", days: ["שני"], lang: "צרפתית" },
   { time: "10:35", subject: "דרשת שבת של מו\"ר", teacher: "", category: "rabanim", contactKey: "", days: ["שבת"], duration: 75 },
@@ -47,18 +47,18 @@ const SCHEDULE = [
   { time: "10:35", subject: "Shiur en español", teacher: "", category: "rabanim", contactKey: "Shiur en español", days: ["שבת"], lang: "ספרדית", duration: 75 },
   { time: "10:35", subject: "שיעורי ילדים", teacher: "", category: "youth", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שבת"], duration: 75, note: "לפי גילאים - פירוט קבוצות ומיקומים יושלם בהמשך" },
 
-  { time: "19:30", subject: "שיעור הלכה", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שני","חמישי"], note: "בין מנחה לערבית", duration: 30 },
-  { time: "19:30", subject: "גמרא תענית - כיתות ז'", teacher: "", category: "youth", contactKey: "גמרא תענית לכיתות ז", days: ["ראשון"], note: "בין מנחה לערבית" },
-  { time: "19:30", subject: "גמרא - כיתה ח'", teacher: "", category: "youth", contactKey: "גמרא לכיתות ח", days: ["חמישי"], note: "בין מנחה לערבית" },
-  { time: "19:30", subject: "לכיתות ה'-ו': נוסח תפילה. לכיתות ב'-ו': טעמי המקרא", teacher: "הרב יהוידע", category: "youth", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"], note: "בין מנחה לערבית" },
-  { time: "19:30", subject: "חברותות - כיתות ה'-ז' חט\"ב", teacher: "", category: "youth", contactKey: "", days: ["רביעי"], note: "בין מנחה לערבית" },
-  { time: "19:30", subject: "טעמי המצוות", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שבת"], note: "בין מנחה לערבית", duration: 30 },
-  { time: "19:30", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי בוקר", days: ["שבת"], note: "בין מנחה לערבית" },
+  { time: "19:30", subject: "שיעור הלכה", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שני","חמישי"], timeLabel: "בין מנחה לערבית", duration: 30 },
+  { time: "19:30", subject: "גמרא תענית - כיתות ז'", teacher: "", category: "youth", contactKey: "גמרא תענית לכיתות ז", days: ["ראשון"], timeLabel: "בין מנחה לערבית" },
+  { time: "19:30", subject: "גמרא - כיתה ח'", teacher: "", category: "youth", contactKey: "גמרא לכיתות ח", days: ["חמישי"], timeLabel: "בין מנחה לערבית" },
+  { time: "19:30", subject: "לכיתות ה'-ו': נוסח תפילה. לכיתות ב'-ו': טעמי המקרא", teacher: "הרב יהוידע", category: "youth", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"], timeLabel: "בין מנחה לערבית", hidden: true },
+  { time: "19:30", subject: "חברותות - כיתות ה'-ז' חט\"ב", teacher: "", category: "youth", contactKey: "", days: ["רביעי"], timeLabel: "בין מנחה לערבית" },
+  { time: "19:30", subject: "טעמי המצוות", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שבת"], timeLabel: "בין מנחה לערבית", duration: 30 },
+  { time: "19:30", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי בוקר", days: ["שבת"], timeLabel: "בין מנחה לערבית" },
 
   { time: "19:30", subject: "תורה נוער - לימוד חבורות", teacher: "", category: "youth", contactKey: "תורה נוער", days: ["שני"], note: "בחופש הגדול" },
   { time: "20:30", subject: "אור החיים", teacher: "ר' שלמה נוימן", category: "groups", contactKey: "אור החיים", days: ["שלישי"] },
 
-  { time: "19:45", subject: "כוונה שבלב", teacher: "הרב ידידיה", category: "rabanim", contactKey: "כוונה שבלב", days: ["ראשון"], note: "בקיץ: אחרי ערבית באוהלים" },
+  { time: "19:45", subject: "כוונה שבלב", teacher: "הרב ידידיה", category: "rabanim", contactKey: "כוונה שבלב", days: ["ראשון"], timeLabel: "אחרי ערבית", note: "בקיץ: באוהלים" },
   { time: "20:15", subject: "שיעור לנשות האברכים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 30 },
 
   { time: "21:00", subject: "דף יומי (ערב)", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["ראשון","שני","שלישי","רביעי","חמישי"], duration: 35 },
