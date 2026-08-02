@@ -521,8 +521,24 @@
     content.innerHTML = any ? html : '<div class="empty-msg">אין שיעורים בקטגוריה זו</div>';
   }
 
+  // שעות שקטות (אף פעם אין שיעור) - נדחסות הרבה יותר בציר הזמן
+  const QUIET_START = 10 * 60;
+  const QUIET_END = 17 * 60;
+
+  function makeTimeMapper(dayStart, scale, quietScale) {
+    return function y(mins) {
+      if (mins <= QUIET_START) return (mins - dayStart) * scale;
+      const preQuiet = (QUIET_START - dayStart) * scale;
+      if (mins >= QUIET_END) {
+        const quietSpan = (QUIET_END - QUIET_START) * quietScale;
+        return preQuiet + quietSpan + (mins - QUIET_END) * scale;
+      }
+      return preQuiet + (mins - QUIET_START) * quietScale;
+    };
+  }
+
   // מארגן אירועים חופפים בעמודות זו-לצד-זו, כמו בגוגל קלנדר
-  function computeLayout(items, day, DAY_START, SCALE, minHeight) {
+  function computeLayout(items, day, y, minHeight) {
     const withTimes = items.map(e => {
       const startMin = toMinutes(e.time);
       const durationMin = getDurationMin(e, day);
@@ -556,8 +572,8 @@
 
     return withTimes.map(it => ({
       e: it.e,
-      top: Math.max(0, (it.startMin - DAY_START) * SCALE),
-      height: Math.max(minHeight, (it.endMin - it.startMin) * SCALE - 2),
+      top: Math.max(0, y(it.startMin)),
+      height: Math.max(minHeight, y(it.endMin) - y(it.startMin) - 2),
       col: it.col,
       cols: it.cols
     }));
@@ -566,8 +582,10 @@
   function renderGrid() {
     const DAY_START = 6 * 60;   // 06:00
     const DAY_END = 22 * 60;    // 22:00
-    const SCALE = 2;            // px per minute
-    const totalHeight = (DAY_END - DAY_START) * SCALE;
+    const SCALE = 1.6;          // px per minute (-20% מהמקורי)
+    const QUIET_SCALE = SCALE * 0.25; // 10:00-17:00 דחוס נוסף
+    const y = makeTimeMapper(DAY_START, SCALE, QUIET_SCALE);
+    const totalHeight = y(DAY_END);
 
     const items = SCHEDULE
       .filter(e => e.days.includes(selectedDay))
@@ -575,12 +593,12 @@
 
     let html = `<div class="grid-wrap" style="height:${totalHeight}px">`;
     for (let h = 6; h <= 22; h++) {
-      const top = (h * 60 - DAY_START) * SCALE;
+      const top = y(h * 60);
       html += `<div class="grid-hour-line" style="top:${top}px"></div>`;
       html += `<div class="grid-hour-label" style="top:${top}px">${h}:00</div>`;
     }
 
-    const layout = computeLayout(items, selectedDay, DAY_START, SCALE, 40);
+    const layout = computeLayout(items, selectedDay, y, 40);
     let cards = "";
     layout.forEach(({ e, top, height, col, cols }) => {
       const contact = CONTACTS[e.contactKey];
@@ -601,13 +619,15 @@
   function renderWeekGrid() {
     const DAY_START = 6 * 60;   // 06:00
     const DAY_END = 22 * 60;    // 22:00
-    const SCALE = 1.3;          // px per minute
-    const totalHeight = (DAY_END - DAY_START) * SCALE;
+    const SCALE = 1.04;         // px per minute (-20% מהמקורי)
+    const QUIET_SCALE = SCALE * 0.25; // 10:00-17:00 דחוס נוסף
+    const y = makeTimeMapper(DAY_START, SCALE, QUIET_SCALE);
+    const totalHeight = y(DAY_END);
     const today = DAYS[new Date().getDay()];
 
     let hourLines = "";
     for (let h = 6; h <= 22; h++) {
-      const top = (h * 60 - DAY_START) * SCALE;
+      const top = y(h * 60);
       hourLines += `<div class="week-hour-line" style="top:${top}px"></div>`;
       hourLines += `<div class="week-hour-label" style="top:${top}px">${h}</div>`;
     }
@@ -617,7 +637,7 @@
     let anyEvents = false;
     const cols = DAYS.map(day => {
       const items = SCHEDULE.filter(e => e.days.includes(day)).filter(matchesCat);
-      const layout = computeLayout(items, day, DAY_START, SCALE, 16);
+      const layout = computeLayout(items, day, y, 16);
       const events = layout.map(({ e, top, height, col, cols }) => {
         anyEvents = true;
         const idx = SCHEDULE.indexOf(e);

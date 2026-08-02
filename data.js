@@ -23,7 +23,6 @@ const CONTACTS = {
   "דף יומי ערב": { location: "היכל בנימין", contact: "קבוצת ערב", phone: "", groupLink: "https://chat.whatsapp.com/6aqRBCBtlWg5dlbryxgXaY" },
   "אור החיים": { location: "אוהלים", contact: "אליאס לוי", phone: "054-9995650" },
   "תלמוד למתחילים": { location: "ממ\"ק בית המדרש", contact: "רז לוי", phone: "050-6566008" },
-  "תורה נוער": { location: "פרגולה", contact: "יאיר סטודנסקי", phone: "054-8978004" },
   "שערי אורה": { location: "פרגולה", contact: "אמיר אלמוג", phone: "053-5313276" },
   "Talmud en français": { location: "אוהלים", contact: "יוסף אסוס", phone: "053-9218272" },
   "גמרא תענית לכיתות ז": { location: "בפרגולה", contact: "ר' שמואל כהן", phone: "058-6681605" },
@@ -58,9 +57,8 @@ const SCHEDULE = [
   { time: "19:30", subject: "לכיתות ה'-ו': נוסח תפילה. לכיתות ב'-ו': טעמי המקרא", teacher: "הרב יהוידע", category: "youth", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"], timeLabel: "בין מנחה לערבית", duration: 30, hidden: true },
   { time: "19:30", subject: "חברותות - כיתות ה'-ז' חט\"ב", teacher: "", category: "youth", contactKey: "", days: ["רביעי"], timeLabel: "בין מנחה לערבית", duration: 30 },
   { time: "19:30", subject: "טעמי המצוות", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שבת"], timeLabel: "בין מנחה לערבית", duration: 45 },
-  { time: "19:30", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי בוקר", days: ["שבת"], timeLabel: "בין מנחה לערבית", duration: 45 },
+  { time: "18:30", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["שבת"], duration: 30, note: "שעה לפני הדלקת הנר (קיץ)" },
 
-  { time: "19:30", subject: "תורה נוער - לימוד חבורות", teacher: "", category: "youth", contactKey: "תורה נוער", days: ["שני"], note: "בחופש הגדול" },
   { time: "20:30", subject: "אור החיים", teacher: "ר' שלמה נוימן", category: "groups", contactKey: "אור החיים", days: ["שלישי"], timeLabel: "אחרי ערבית באוהלים" },
 
   { time: "19:45", subject: "כוונה שבלב", teacher: "הרב ידידיה", category: "rabanim", contactKey: "כוונה שבלב", days: ["ראשון"], timeLabel: "אחרי ערבית", note: "בקיץ: באוהלים" },
