@@ -15,6 +15,8 @@ const DAYS = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", 
 // לפרטים ליצירת קשר לכל שיעור/קבוצה (מתוך טבלת הפרטים שבתחתית הלוח)
 const CONTACTS = {
   "שיעור הלכה עם הרב חננאל": { location: "אוהלים", contact: "איתן", phone: "058-5858432" },
+  "טעמי המצוות": { location: "היכל בנימין", contact: "איתן", phone: "058-5858432" },
+  "דרשת שבת של מו\"ר": { location: "היכל בנימין" },
   "עין איה": { location: "אוהל משה", contact: "אמיר אלמוג", phone: "053-5313276" },
   "עבודה שבלב - תפילה": { location: "ממ\"ק בית המדרש", contact: "ניר דהן", phone: "052-6097564" },
   "שיעורי הרב יהוידע בבקרים": { location: "חדר האוצר", contact: "יחזקאל בלוקה", phone: "052-3121098" },
@@ -25,8 +27,8 @@ const CONTACTS = {
   "תלמוד למתחילים": { location: "ממ\"ק בית המדרש", contact: "רז לוי", phone: "050-6566008" },
   "שערי אורה": { location: "פרגולה", contact: "אמיר אלמוג", phone: "053-5313276" },
   "Talmud en français": { location: "אוהלים", contact: "יוסף אסוס", phone: "053-9218272" },
-  "גמרא תענית לכיתות ז": { location: "בפרגולה", contact: "ר' שמואל כהן", phone: "058-6681605" },
-  "גמרא לכיתות ח": { location: "בפרגולה", contact: "ר' שמואל כהן", phone: "058-6681605" },
+  "גמרא תענית לכיתות ז": { location: "בפרגולה", contact: "ר' שמואל כהן", phone: "053-7084032" },
+  "גמרא לכיתות ח": { location: "בפרגולה", contact: "ר' שמואל כהן", phone: "053-7084032" },
   "Shiur en français": { location: "היכל בנימין", contact: "יעל וייס", phone: "058-6667708" },
   "Shiur en español": { location: "", contact: "איתן", phone: "058-5858432" },
   "שיעורי הרבנית": { location: "בפרגולה 12", contact: "יעל וייס", phone: "058-6667708" }
@@ -41,7 +43,7 @@ const SCHEDULE = [
   { time: "8:00", subject: "מהר\"ל שבת", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע בבקרים", days: ["רביעי"], hidden: true },
 
   { time: "10:00", subject: "Shiur en français", teacher: "הרבנית", category: "women", contactKey: "Shiur en français", days: ["שני"], lang: "צרפתית" },
-  { time: "10:35", subject: "דרשת שבת של מו\"ר", teacher: "", category: "rabanim", contactKey: "", days: ["שבת"], duration: 75 },
+  { time: "10:35", subject: "דרשת שבת של מו\"ר", teacher: "", category: "rabanim", contactKey: "דרשת שבת של מו\"ר", days: ["שבת"], duration: 75 },
   { time: "10:35", subject: "Shiur en français", teacher: "", category: "rabanim", contactKey: "", days: ["שבת"], lang: "צרפתית", duration: 75 },
   { time: "10:35", subject: "Shiur en español", teacher: "", category: "rabanim", contactKey: "Shiur en español", days: ["שבת"], lang: "ספרדית", duration: 75 },
   { time: "10:35", subject: "שיעורים לילדים", teacher: "", category: "youth", contactKey: "", days: ["שבת"], duration: 75, note: "לחצו לפירוט", groups: [
@@ -56,7 +58,7 @@ const SCHEDULE = [
   { time: "19:30", subject: "גמרא - כיתה ח'", teacher: "", category: "youth", contactKey: "גמרא לכיתות ח", days: ["חמישי"], timeLabel: "בין מנחה לערבית", duration: 30 },
   { time: "19:30", subject: "לכיתות ה'-ו': נוסח תפילה. לכיתות ב'-ו': טעמי המקרא", teacher: "הרב יהוידע", category: "youth", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"], timeLabel: "בין מנחה לערבית", duration: 30, hidden: true },
   { time: "19:30", subject: "חברותות - כיתות ה'-ז' חט\"ב", teacher: "", category: "youth", contactKey: "", days: ["רביעי"], timeLabel: "בין מנחה לערבית", duration: 30, hidden: true },
-  { time: "19:30", subject: "טעמי המצוות", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שבת"], timeLabel: "בין מנחה לערבית", duration: 45 },
+  { time: "19:30", subject: "טעמי המצוות", teacher: "הרב חננאל", category: "rabanim", contactKey: "טעמי המצוות", days: ["שבת"], timeLabel: "בין מנחה לערבית", duration: 45 },
   { time: "18:30", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["שבת"], duration: 30, note: "שעה לפני הדלקת הנר (קיץ)" },
 
   { time: "20:30", subject: "אור החיים", teacher: "ר' שלמה נוימן", category: "groups", contactKey: "אור החיים", days: ["שלישי"], timeLabel: "אחרי ערבית באוהלים" },
