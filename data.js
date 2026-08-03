@@ -16,7 +16,7 @@ const DAYS = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", 
 const CONTACTS = {
   "שיעור הלכה עם הרב חננאל": { location: "אוהלים", contact: "איתן", phone: "058-5858432" },
   "עין איה": { location: "אוהל משה", contact: "אמיר אלמוג", phone: "053-5313276" },
-  "תפילה": { location: "ממ\"ק בית המדרש", contact: "ניר דהן", phone: "052-6097564" },
+  "עבודה שבלב - תפילה": { location: "ממ\"ק בית המדרש", contact: "ניר דהן", phone: "052-6097564" },
   "שיעורי הרב יהוידע בבקרים": { location: "חדר האוצר", contact: "יחזקאל בלוקה", phone: "052-3121098" },
   "שיעורי הרב יהוידע לילדים": { location: "ממ\"ק קומה ראשונה", contact: "יונדב אלבז", phone: "054-5391977" },
   "דף יומי בוקר": { location: "פרגולה", contact: "ירוחם נעמן", phone: "053-4939075", groupLink: "https://chat.whatsapp.com/FnhfAv7iqvnGcqUvo8juIB" },
@@ -61,7 +61,7 @@ const SCHEDULE = [
 
   { time: "20:30", subject: "אור החיים", teacher: "ר' שלמה נוימן", category: "groups", contactKey: "אור החיים", days: ["שלישי"], timeLabel: "אחרי ערבית באוהלים" },
 
-  { time: "19:45", subject: "תפילה", teacher: "הרב ידידיה", category: "rabanim", contactKey: "תפילה", days: ["ראשון"] },
+  { time: "19:45", subject: "עבודה שבלב - תפילה", teacher: "הרב ידידיה", category: "rabanim", contactKey: "עבודה שבלב - תפילה", days: ["ראשון"] },
   { time: "20:15", subject: "שיעור לנשות האברכים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 30 },
 
   { time: "21:00", subject: "דף יומי (ערב)", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["ראשון","שני","שלישי","רביעי","חמישי"], duration: 35 },
