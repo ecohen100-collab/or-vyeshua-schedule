@@ -164,6 +164,8 @@
 
   .entry-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
   .entry-time { font-size: 1.3rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
+  .time-rel { display: block; font-size: 0.7rem; font-weight: 600; color: var(--muted); text-align: left; }
+  .we-t .time-rel { display: none; }
   .entry-subject { font-size: 1.15rem; font-weight: 700; }
   .entry-teacher { margin-top: 2px; color: var(--muted); font-size: 1rem; }
   .entry-note { margin-top: 2px; color: var(--muted); font-size: 0.75rem; font-style: italic; }
@@ -340,7 +342,36 @@
 </footer>
 
 <script src="data.js"></script>
+<script src="prayers.js" onerror="window.PRAYER_WEEKS = {}"></script>
 <script>
+  // שיעורים שמוגדרים ביחס לתפילה: מחשבים את השעה לפי זמני התפילות של השבוע הנוכחי (prayers.js).
+  // אם אין נתונים לשבוע (שבוע חג / סוף השנה) - נשאר הטקסט בלבד, כמו קודם.
+  (function applyPrayerTimes() {
+    const weeks = typeof PRAYER_WEEKS !== "undefined" ? PRAYER_WEEKS : {};
+    const now = new Date();
+    const sat = new Date(now.getFullYear(), now.getMonth(), now.getDate() + (6 - now.getDay()));
+    const key = `${sat.getFullYear()}-${String(sat.getMonth() + 1).padStart(2, "0")}-${String(sat.getDate()).padStart(2, "0")}`;
+    const w = weeks[key];
+    if (!w) return;
+    const mins = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+    const fmt = x => `${Math.floor(x / 60)}:${String(x % 60).padStart(2, "0")}`;
+    // כל כלל מחזיר [התחלה, סוף-מקסימלי] בדקות (סוף = ערבית, כדי שהשיעור לא יחרוג ממנה)
+    const RULES = {
+      "בין מנחה לערבית": e => e.days.length === 1 && e.days[0] === "שבת"
+        ? (w.k && w.n ? [mins(w.k) + 25, mins(w.n)] : null)
+        : [mins(w.m) + 15, mins(w.a)],
+      "חצי שעה לפני מנחה": e => e.days.includes("שבת") ? null : [mins(w.m) - 30, mins(w.m)],
+    };
+    SCHEDULE.forEach(e => {
+      const rule = e.timeLabel && RULES[e.timeLabel];
+      const r = rule && rule(e);
+      if (!r || r[1] - r[0] < 10) return;
+      e.time = fmt(r[0]); e.autoTime = true;
+      e.duration = Math.min(e.duration || 60, r[1] - r[0]);
+      e.durationByDay = undefined;
+    });
+  })();
+
   const HEBREW_DAY_INDEX = new Date().getDay(); // 0=ראשון
   let selectedDay = DAYS[HEBREW_DAY_INDEX];
   let selectedView = "list";
@@ -437,12 +468,13 @@
   }
 
   function formatTimeRange(e, day) {
-    if (e.timeLabel) return e.timeLabel;
+    if (e.timeLabel && !e.autoTime) return e.timeLabel;
     const startMin = toMinutes(e.time);
     const endMin = startMin + getDurationMin(e, day);
     const eh = Math.floor(endMin / 60) % 24;
     const em = endMin % 60;
-    return `<span dir="ltr">${e.time}–${eh}:${pad(em)}</span>`;
+    const range = `<span dir="ltr">${e.time}–${eh}:${pad(em)}</span>`;
+    return e.autoTime ? `${range}<small class="time-rel">${e.timeLabel}</small>` : range;
   }
 
   function fmtLocal(d) {
