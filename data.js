@@ -77,5 +77,5 @@ const SCHEDULE = [
   { time: "20:30", subject: "שערי אורה", teacher: "ר' דוד לרדו", category: "groups", contactKey: "שערי אורה", days: ["שני"], duration: 60 },
   { time: "21:15", subject: "תלמוד למתחילים", teacher: "דב יציב", category: "groups", contactKey: "תלמוד למתחילים", days: ["שלישי"], duration: 60 },
   { time: "20:45", subject: "שיעור לכלל הנשים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 75 },
-  { time: "21:00", subject: "עין איה", teacher: "הרב חננאל", category: "rabanim", contactKey: "עין איה", days: ["חמישי"] }
+  { time: "21:15", subject: "עין איה", teacher: "הרב חננאל", category: "rabanim", contactKey: "עין איה", days: ["חמישי"], duration: 60 }
 ];
