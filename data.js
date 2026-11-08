@@ -24,7 +24,8 @@ const CONTACTS = {
   "דף יומי בוקר": { location: "פרגולה", contact: "ירוחם נעמן", phone: "053-4939075", groupLink: "https://chat.whatsapp.com/FnhfAv7iqvnGcqUvo8juIB" },
   "דף יומי ערב": { location: "היכל בנימין", contact: "קבוצת ערב", phone: "", groupLink: "https://chat.whatsapp.com/6aqRBCBtlWg5dlbryxgXaY" },
   "אור החיים": { location: "אוהלים", contact: "אליאס לוי", phone: "054-9995650" },
-  "תלמוד למתחילים": { location: "ממ\"ק בית המדרש", contact: "רז לוי", phone: "050-6566008" },
+  "תלמוד למתחילים": { location: "חדר האוצר", contact: "רז לוי", phone: "050-6566008" },
+  "חוג המלמד": { location: "פרגולה, היכל בנימין", contact: "יפעת", phone: "050-8882482" },
   "שערי אורה": { location: "פרגולה", contact: "אמיר אלמוג", phone: "053-5313276" },
   "Talmud en français": { location: "אוהלים", contact: "יוסף אסוס", phone: "053-9218272" },
   "גמרא תענית לכיתות ז": { location: "בפרגולה", contact: "ר' שמואל כהן", phone: "053-7084032" },
@@ -56,7 +57,13 @@ const SCHEDULE = [
   { time: "19:30", subject: "שיעור הלכה", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שני","חמישי"], timeLabel: "בין מנחה לערבית", duration: 30 },
   { time: "19:30", subject: "גמרא תענית - כיתות ז'", teacher: "", category: "youth", contactKey: "גמרא תענית לכיתות ז", days: ["ראשון"], timeLabel: "בין מנחה לערבית", duration: 30 },
   { time: "19:30", subject: "גמרא - כיתה ח'", teacher: "", category: "youth", contactKey: "גמרא לכיתות ח", days: ["חמישי"], timeLabel: "בין מנחה לערבית", duration: 30 },
-  { time: "19:30", subject: "טעמי המקרא - כיתות ב'-ו'", teacher: "הרב יהוידע", category: "youth", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"], timeLabel: "חצי שעה לפני מנחה", duration: 30 },
+  { time: "20:00", subject: "טעמי המקרא - כיתות ב'-ו'", teacher: "הרב יהוידע", category: "youth", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"], timeLabel: "אחרי ערבית", duration: 30 },
+  { time: "20:00", subject: "חוג המלמד - מתכוננים לפרשה (בנים)", teacher: "", category: "youth", contactKey: "חוג המלמד", days: ["שני"], timeLabel: "אחרי ערבית", duration: 45, note: "לחצו לפירוט", groups: [
+    { label: "בנים כיתות ב'-ג'", location: "פרגולה, היכל בנימין" },
+    { label: "בנים כיתות ד'-ו'", location: "פרגולה, היכל בנימין" }
+  ] },
+  { time: "16:30", subject: "חוג המלמד - מתכוננות לפרשה (בנות ב'-ג')", teacher: "", category: "youth", contactKey: "חוג המלמד", days: ["שלישי"], duration: 45 },
+  { time: "16:15", subject: "חוג המלמד - מתכוננות לפרשה (בנות ד'-ו')", teacher: "", category: "youth", contactKey: "חוג המלמד", days: ["חמישי"], duration: 45 },
   { time: "19:30", subject: "חברותות - כיתות ה'-ז' חט\"ב", teacher: "", category: "youth", contactKey: "", days: ["רביעי"], timeLabel: "בין מנחה לערבית", duration: 30, hidden: true },
   { time: "19:30", subject: "טעמי המצוות", teacher: "הרב חננאל", category: "rabanim", contactKey: "טעמי המצוות", days: ["שבת"], timeLabel: "בין מנחה לערבית", duration: 45 },
   { time: "18:30", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["שבת"], duration: 30, note: "שעה לפני הדלקת הנר (קיץ)" },
@@ -68,7 +75,7 @@ const SCHEDULE = [
 
   { time: "21:00", subject: "דף יומי (ערב)", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["ראשון","שני","שלישי","רביעי","חמישי"], duration: 35 },
   { time: "20:30", subject: "שערי אורה", teacher: "ר' דוד לרדו", category: "groups", contactKey: "שערי אורה", days: ["שני"], duration: 60 },
-  { time: "21:00", subject: "תלמוד למתחילים", teacher: "דב יציב", category: "groups", contactKey: "תלמוד למתחילים", days: ["שלישי"] },
+  { time: "21:15", subject: "תלמוד למתחילים", teacher: "דב יציב", category: "groups", contactKey: "תלמוד למתחילים", days: ["שלישי"], duration: 60 },
   { time: "20:45", subject: "שיעור לכלל הנשים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 75 },
   { time: "21:00", subject: "עין איה", teacher: "הרב חננאל", category: "rabanim", contactKey: "עין איה", days: ["חמישי"] }
 ];
