@@ -72,7 +72,7 @@ const SCHEDULE = [
   { time: "19:30", subject: "טעמי המצוות", teacher: "הרב חננאל", category: "rabanim", contactKey: "טעמי המצוות", days: ["שבת"], timeLabel: "בין מנחה לערבית", duration: 45 },
   { time: "18:30", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["שבת"], duration: 30, note: "שעה לפני הדלקת הנר (קיץ)" },
 
-  { time: "20:30", subject: "אור החיים", teacher: "ר' שלמה נוימן", category: "groups", contactKey: "אור החיים", days: ["שלישי"], timeLabel: "אחרי ערבית באוהלים" },
+  { time: "19:45", subject: "אור החיים", teacher: "ר' שלמה נוימן", category: "groups", contactKey: "אור החיים", days: ["שלישי"], timeLabel: "אחרי ערבית של 19:30 (19:45)" },
 
   { time: "19:45", subject: "סוגיות בעיון", teacher: "הרב יהוידע", category: "rabanim", contactKey: "שיעורי הרב יהוידע בערב", days: ["שלישי"], duration: 75 },
   { time: "19:45", subject: "עבודה שבלב - תפילה", teacher: "הרב ידידיה", category: "rabanim", contactKey: "עבודה שבלב - תפילה", days: ["ראשון"] },
