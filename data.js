@@ -21,7 +21,7 @@ const CONTACTS = {
   "עבודה שבלב - תפילה": { location: "ממ\"ק בית המדרש", contact: "ניר דהן", phone: "052-6097564" },
   "שיעורי הרב יהוידע בבקרים": { location: "חדר האוצר", contact: "יחזקאל בלוקה", phone: "052-3121098" },
   "שיעורי הרב יהוידע בערב": { location: "ספריה", contact: "יחזקאל בלוקה", phone: "052-3121098" },
-  "פרשת השבוע - הרב יהוידע": { location: "", contact: "יונתן עזרן", phone: "" },
+  "פרשת השבוע - הרב יהוידע": { location: "", contact: "יונתן עזרן", phone: "054-7970787" },
   "שיעורי הרב יהוידע לילדים": { location: "ממ\"ק קומה ראשונה", contact: "יונדב אלבז", phone: "054-5391977" },
   "דף יומי בוקר": { location: "פרגולה", contact: "ירוחם נעמן", phone: "053-4939075", groupLink: "https://chat.whatsapp.com/FnhfAv7iqvnGcqUvo8juIB" },
   "דף יומי ערב": { location: "היכל בנימין", contact: "קבוצת ערב", phone: "", groupLink: "https://chat.whatsapp.com/6aqRBCBtlWg5dlbryxgXaY" },
