@@ -14,8 +14,8 @@ const DAYS = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", 
 
 // לפרטים ליצירת קשר לכל שיעור/קבוצה (מתוך טבלת הפרטים שבתחתית הלוח)
 const CONTACTS = {
-  "שיעור הלכה עם הרב חננאל": { location: "אוהלים", contact: "איתן", phone: "058-5858432" },
-  "טעמי המצוות": { location: "היכל בנימין", contact: "איתן", phone: "058-5858432" },
+  "שיעור הלכה עם הרב חננאל": { location: "אוהלים", contact: "איתן כהן", phone: "058-5858432" },
+  "טעמי המצוות": { location: "היכל בנימין", contact: "איתן כהן", phone: "058-5858432" },
   "דרשת שבת של מו\"ר": { location: "היכל בנימין" },
   "עין איה": { location: "אוהל משה", contact: "אמיר אלמוג", phone: "053-5313276" },
   "עבודה שבלב - תפילה": { location: "ממ\"ק בית המדרש", contact: "ניר דהן", phone: "052-6097564" },
@@ -27,13 +27,13 @@ const CONTACTS = {
   "דף יומי ערב": { location: "היכל בנימין", contact: "קבוצת ערב", phone: "", groupLink: "https://chat.whatsapp.com/6aqRBCBtlWg5dlbryxgXaY" },
   "אור החיים": { location: "אוהלים", contact: "אליאס לוי", phone: "054-9995650" },
   "תלמוד למתחילים": { location: "חדר האוצר", contact: "רז לוי", phone: "050-6566008" },
-  "חוג המלמד": { location: "פרגולה, היכל בנימין", contact: "יפעת", phone: "050-8882482" },
+  "חוג המלמד": { location: "פרגולה, היכל בנימין", contact: "יפעת בוצחק", phone: "050-8882482" },
   "שערי אורה": { location: "פרגולה", contact: "אמיר אלמוג", phone: "053-5313276" },
   "Talmud en français": { location: "אוהלים", contact: "יוסף אסוס", phone: "053-9218272" },
   "גמרא תענית לכיתות ז": { location: "בפרגולה", contact: "ר' שמואל כהן", phone: "053-7084032" },
   "גמרא לכיתות ח": { location: "בפרגולה", contact: "ר' שמואל כהן", phone: "053-7084032" },
   "Shiur en français": { location: "היכל בנימין", contact: "יעל וייס", phone: "058-6667708" },
-  "Shiur en español": { location: "", contact: "איתן", phone: "058-5858432" },
+  "Shiur en español": { location: "", contact: "איתן כהן", phone: "058-5858432" },
   "שיעורי הרבנית": { location: "בפרגולה 12", contact: "יעל וייס", phone: "058-6667708" }
 };
 
