@@ -49,8 +49,8 @@ const SCHEDULE = [
 
   { time: "10:00", subject: "Shiur en français", teacher: "הרבנית", category: "women", contactKey: "Shiur en français", days: ["שני"], lang: "צרפתית" },
   { time: "10:35", subject: "דרשת שבת של מו\"ר", teacher: "", category: "rabanim", contactKey: "דרשת שבת של מו\"ר", days: ["שבת"], duration: 75 },
-  { time: "10:35", subject: "Shiur en français", teacher: "", category: "rabanim", contactKey: "", days: ["שבת"], lang: "צרפתית", duration: 75 },
-  { time: "10:35", subject: "Shiur en español", teacher: "", category: "rabanim", contactKey: "Shiur en español", days: ["שבת"], lang: "ספרדית", duration: 75 },
+  { time: "10:35", subject: "Shiur en français", teacher: "", category: "groups", contactKey: "", days: ["שבת"], lang: "צרפתית", duration: 75 },
+  { time: "10:35", subject: "Shiur en español", teacher: "", category: "groups", contactKey: "Shiur en español", days: ["שבת"], lang: "ספרדית", duration: 75 },
   { time: "10:35", subject: "שיעורים לילדים", teacher: "", category: "youth", contactKey: "", days: ["שבת"], duration: 75, note: "לחצו לפירוט", groups: [
     { label: "ילדי גן", location: "גן צופיה" },
     { label: "כיתות א'-ג'", location: "בספריה" },
