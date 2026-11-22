@@ -362,6 +362,9 @@
         ? (w.k && w.n ? [mins(w.k) + 25, mins(w.n)] : null)
         : [mins(w.m) + 15, mins(w.a)],
       "חצי שעה לפני מנחה": e => e.days.includes("שבת") ? null : [mins(w.m) - 30, mins(w.m)],
+      "שעה לפני מנחה": e => e.days.length === 1 && e.days[0] === "שבת"
+        ? (w.k ? [mins(w.k) - 60, mins(w.k)] : null)
+        : [mins(w.m) - 60, mins(w.m)],
     };
     SCHEDULE.forEach(e => {
       const rule = e.timeLabel && RULES[e.timeLabel];

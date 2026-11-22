@@ -35,6 +35,7 @@ const CONTACTS = {
   "Shiur en français": { location: "היכל בנימין", contact: "יעל וייס", phone: "058-6667708" },
   "Shiur en español": { location: "", contact: "איתן כהן", phone: "058-5858432" },
   "שיעור הרבנית לכלל הנשים": { location: "בפרגולה 12", contact: "יפעת בוצחק", phone: "050-8882482" },
+  "מסכת קידושין": { location: "אוהלים", contact: "מטיאס מארדר", phone: "054-6492372" },
   "שיעורי הרבנית": { location: "בפרגולה 12", contact: "יעל וייס", phone: "058-6667708" }
 };
 
@@ -60,7 +61,7 @@ const SCHEDULE = [
   ] },
 
   { time: "19:30", subject: "שיעור הלכה", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שני","חמישי"], timeLabel: "בין מנחה לערבית", duration: 30 },
-  { time: "19:30", subject: "גמרא תענית - כיתות ז'", teacher: "", category: "youth", contactKey: "גמרא תענית לכיתות ז", days: ["ראשון"], timeLabel: "בין מנחה לערבית", duration: 30 },
+  { time: "19:30", subject: "גמרא תענית - כיתות ז'", teacher: "", category: "youth", contactKey: "גמרא תענית לכיתות ז", days: ["ראשון"], timeLabel: "בין מנחה לערבית", duration: 30, hidden: true },
   { time: "19:30", subject: "גמרא - כיתה ח'", teacher: "", category: "youth", contactKey: "גמרא לכיתות ח", days: ["חמישי"], timeLabel: "בין מנחה לערבית", duration: 30 },
   { time: "20:00", subject: "טעמי המקרא - כיתות ב'-ו'", teacher: "הרב יהוידע", category: "youth", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"], timeLabel: "אחרי ערבית", duration: 30 },
   { time: "20:00", subject: "חוג המלמד - מתכוננים לפרשה (בנים)", teacher: "", category: "youth", contactKey: "חוג המלמד", days: ["שני"], timeLabel: "אחרי ערבית", duration: 45, note: "לחצו לפירוט", groups: [
@@ -71,6 +72,7 @@ const SCHEDULE = [
   { time: "16:15", subject: "חוג המלמד - מתכוננות לפרשה (בנות ד'-ו')", teacher: "", category: "youth", contactKey: "חוג המלמד", days: ["חמישי"], duration: 45 },
   { time: "19:30", subject: "חברותות - כיתות ה'-ז' חט\"ב", teacher: "", category: "youth", contactKey: "", days: ["רביעי"], timeLabel: "בין מנחה לערבית", duration: 30, hidden: true },
   { time: "19:30", subject: "טעמי המצוות", teacher: "הרב חננאל", category: "rabanim", contactKey: "טעמי המצוות", days: ["שבת"], timeLabel: "בין מנחה לערבית", duration: 45 },
+  { time: "15:00", subject: "מסכת קידושין", teacher: "הרב יאיר הרשקוביץ", category: "groups", contactKey: "מסכת קידושין", days: ["שבת"], timeLabel: "שעה לפני מנחה", duration: 60 },
   { time: "18:30", subject: "דף יומי", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["שבת"], duration: 30, note: "שעה לפני הדלקת הנר (קיץ)" },
 
   { time: "19:45", subject: "אור החיים", teacher: "ר' שלמה נוימן", category: "groups", contactKey: "אור החיים", days: ["שלישי"], timeLabel: "אחרי ערבית של 19:30 (19:45)" },
