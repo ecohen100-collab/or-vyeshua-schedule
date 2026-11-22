@@ -34,6 +34,7 @@ const CONTACTS = {
   "גמרא לכיתות ח": { location: "בפרגולה", contact: "ר' שמואל כהן", phone: "053-7084032" },
   "Shiur en français": { location: "היכל בנימין", contact: "יעל וייס", phone: "058-6667708" },
   "Shiur en español": { location: "", contact: "איתן כהן", phone: "058-5858432" },
+  "שיעור הרבנית לכלל הנשים": { location: "בפרגולה 12", contact: "יפעת בוצחק", phone: "050-8882482" },
   "שיעורי הרבנית": { location: "בפרגולה 12", contact: "יעל וייס", phone: "058-6667708" }
 };
 
@@ -76,11 +77,11 @@ const SCHEDULE = [
 
   { time: "19:45", subject: "סוגיות בעיון", teacher: "הרב יהוידע", category: "rabanim", contactKey: "שיעורי הרב יהוידע בערב", days: ["שלישי"], duration: 75 },
   { time: "19:45", subject: "עבודה שבלב - תפילה", teacher: "הרב ידידיה", category: "rabanim", contactKey: "עבודה שבלב - תפילה", days: ["ראשון"] },
-  { time: "20:15", subject: "שיעור לנשות האברכים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 30 },
+  { time: "20:15", subject: "שיעור לנשות האברכים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 30, hidden: true },
 
   { time: "21:00", subject: "דף יומי (ערב)", teacher: "", category: "groups", contactKey: "דף יומי ערב", days: ["ראשון","שני","שלישי","רביעי","חמישי"], duration: 35 },
   { time: "20:30", subject: "שערי אורה", teacher: "ר' דוד לרדו", category: "groups", contactKey: "שערי אורה", days: ["שני"], duration: 60 },
   { time: "21:15", subject: "תלמוד למתחילים", teacher: "דב יציב", category: "groups", contactKey: "תלמוד למתחילים", days: ["שלישי"], duration: 60 },
-  { time: "20:45", subject: "שיעור לכלל הנשים", teacher: "הרבנית", category: "women", contactKey: "שיעורי הרבנית", days: ["רביעי"], duration: 75 },
+  { time: "20:30", subject: "שיעור לכלל הנשים", teacher: "הרבנית", category: "women", contactKey: "שיעור הרבנית לכלל הנשים", days: ["רביעי"], duration: 75 },
   { time: "21:15", subject: "עין איה", teacher: "הרב חננאל", category: "rabanim", contactKey: "עין איה", days: ["חמישי"], duration: 60 }
 ];
