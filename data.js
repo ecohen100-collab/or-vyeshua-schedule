@@ -62,7 +62,7 @@ const SCHEDULE = [
 
   { time: "19:30", subject: "שיעור הלכה", teacher: "הרב חננאל", category: "rabanim", contactKey: "שיעור הלכה עם הרב חננאל", days: ["שני","חמישי"], timeLabel: "בין מנחה לערבית", duration: 30 },
   { time: "19:30", subject: "גמרא תענית - כיתות ז'", teacher: "", category: "youth", contactKey: "גמרא תענית לכיתות ז", days: ["ראשון"], timeLabel: "בין מנחה לערבית", duration: 30, hidden: true },
-  { time: "19:30", subject: "גמרא - כיתה ח'", teacher: "", category: "youth", contactKey: "גמרא לכיתות ח", days: ["חמישי"], timeLabel: "בין מנחה לערבית", duration: 30 },
+  { time: "19:30", subject: "גמרא - כיתה ח'", teacher: "", category: "youth", contactKey: "גמרא לכיתות ח", days: ["חמישי"], timeLabel: "בין מנחה לערבית", duration: 30, hidden: true },
   { time: "20:00", subject: "טעמי המקרא - כיתות ב'-ו'", teacher: "הרב יהוידע", category: "youth", contactKey: "שיעורי הרב יהוידע לילדים", days: ["שלישי"], timeLabel: "אחרי ערבית", duration: 30 },
   { time: "20:00", subject: "חוג המלמד - מתכוננים לפרשה (בנים)", teacher: "", category: "youth", contactKey: "חוג המלמד", days: ["שני"], timeLabel: "אחרי ערבית", duration: 45, note: "לחצו לפירוט", groups: [
     { label: "בנים כיתות ב'-ג'", location: "פרגולה, היכל בנימין" },
