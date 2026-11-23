@@ -21,7 +21,7 @@ const CONTACTS = {
   "עבודה שבלב - תפילה": { location: "ממ\"ק בית המדרש", contact: "ניר דהן", phone: "052-6097564" },
   "שיעורי הרב יהוידע בבקרים": { location: "חדר האוצר", contact: "יחזקאל בלוקה", phone: "052-3121098" },
   "שיעורי הרב יהוידע בערב": { location: "ספריה", contact: "יחזקאל בלוקה", phone: "052-3121098" },
-  "פרשת השבוע - הרב יהוידע": { location: "", contact: "יונתן עזרן", phone: "054-7970787" },
+  "פרשת השבוע בצרפתית": { location: "", contact: "יונתן עזרן", phone: "054-7970787" },
   "שיעורי הרב יהוידע לילדים": { location: "ממ\"ק קומה ראשונה", contact: "יונדב אלבז", phone: "054-5391977" },
   "דף יומי בוקר": { location: "פרגולה", contact: "ירוחם נעמן", phone: "053-4939075", groupLink: "https://chat.whatsapp.com/FnhfAv7iqvnGcqUvo8juIB" },
   "דף יומי ערב": { location: "היכל בנימין", contact: "קבוצת ערב", phone: "", groupLink: "https://chat.whatsapp.com/6aqRBCBtlWg5dlbryxgXaY" },
@@ -47,7 +47,7 @@ const SCHEDULE = [
   { time: "8:00", subject: "נתיבות עולם", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע בבקרים", days: ["שלישי"], duration: 60 },
   { time: "9:00", subject: "סוגיות בעיון", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע בבקרים", days: ["שלישי"], duration: 60 },
   { time: "10:00", subject: "מסכת שבת בבקיאות", teacher: "הרב יהוידע", category: "groups", contactKey: "שיעורי הרב יהוידע בבקרים", days: ["שלישי"], duration: 60 },
-  { time: "8:00", subject: "פרשת השבוע לדוברי צרפתית", teacher: "הרב יהוידע", category: "groups", contactKey: "פרשת השבוע - הרב יהוידע", days: ["רביעי"], duration: 60, lang: "צרפתית" },
+  { time: "8:00", subject: "Sujet sur la Paracha de la semaine (en français)", teacher: "יונתן עזרן", category: "groups", contactKey: "פרשת השבוע בצרפתית", days: ["רביעי"], duration: 60, lang: "צרפתית" },
 
   { time: "10:00", subject: "Shiur en français", teacher: "הרבנית", category: "women", contactKey: "Shiur en français", days: ["שני"], lang: "צרפתית" },
   { time: "10:35", subject: "דרשת שבת של מו\"ר", teacher: "", category: "rabanim", contactKey: "דרשת שבת של מו\"ר", days: ["שבת"], duration: 75 },
